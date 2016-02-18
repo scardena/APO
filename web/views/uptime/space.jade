@@ -1,0 +1,54 @@
+extends ../layout
+block content
+	// Content Header (Page header)
+	section.content-header
+		h1
+			| Operating System Uptime
+			small APO-Dashboard
+		ol.breadcrumb
+			li
+				a(href='#')
+					i.fa.fa-dashboard
+					| Home
+			li.active Blank page
+	// Main content
+	section.content
+		.row
+			.col-md-6
+				// LINE CHART
+				.box.box-info
+					.box-header
+						h3.box-title Line Chart
+					.box-body.chart-responsive
+						#line-chart1.chart(style='height: 400px;')
+					// /.box-body
+				// /.box
+block javascript
+	// jQuery 2.0.2
+	script(src='/js/libs/jquery.min.js')
+	// Bootstrap
+	script(src='/js/bootstrap.min.js', type='text/javascript')
+	// Morris.js charts
+	script(src='/js/libs/raphael-min.js')
+	script(src='/js/plugins/morris/morris.min.js', type='text/javascript')
+	// AdminLTE App
+	script(src='/js/AdminLTE/app.js', type='text/javascript')
+	// AdminLTE for demo purposes
+	script(src='/js/AdminLTE/demo.js', type='text/javascript')
+
+
+	//script para enviar los datos
+	script.
+		$(function() {
+			// LINE CHART
+			var line = new Morris.Line({
+			element: 'line-chart1',
+			resize: true,
+			data: !{JSON.stringify(data)},
+			xkey: 'y',
+			ykeys: ['item1'],
+			labels: ['Item 1'],
+			lineColors: ['#3c8dbc'],
+			hideHover: 'auto'
+			});
+		});

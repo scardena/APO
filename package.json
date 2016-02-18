@@ -1,0 +1,22 @@
+{
+  "name": "APO-Dashboard",
+  "version": "0.0.0",
+  "description": "Dashboard for monitoring Alma's Archive and Pipeline Operations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Nesus/APO-Dashboard.git"
+  },
+  "author": "Camilo Valenzuela",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Nesus/APO-Dashboard/issues"
+  },
+  "dependencies": {
+    "express": "~4.13.4",
+    "express-generator": "~4.13.1"
+  }
+}
