@@ -31,7 +31,8 @@ block content
 										span.pull-left SCO
 										small.pull-right #{scoused} / #{scototal} TB 
 									.progress.xs
-										.progress-bar.progress-bar-green(style='width: 43%;')
+										- var percentage = 20
+										.progress-bar.progress-bar-green(style='width: #{percentage}%;')
 									.clearfix
 										span.pull-left OSFBE
 										small.pull-right #{osfBEused} / #{osfBEtotal} TB
@@ -91,7 +92,7 @@ block content
 
 		.row
 			section.col-lg-4.coonectedSortable 
-				#loading-example.box.box-solid.box-info
+				.box.box-solid.box-info
 					.box-header
 						.pull-right.box-tools
 							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
@@ -110,7 +111,14 @@ block content
 									td #{column.name}
 									td #{column.partition}
 									td #{column.percused}
-									td #{column.status}
+									td 
+										- var myvar = column.status 
+										if myvar == "green"
+											span.label.label-success OK 
+										else if myvar == "yellow"
+											span.label.label-warning  Warning
+										else
+											span.label.label-danger Danger
 									tr
 			section.col-lg-4.connectedSortable 
 				#loading-example.box.box-solid.box-info
@@ -132,19 +140,26 @@ block content
 									td #{column.name}
 									td #{column.partition}
 									td #{column.percused}
-									td #{column.status}
+									td 
+										- var myvar = column.status 
+										if myvar == "green"
+											span.label.label-success OK 
+										else if myvar == "yellow"
+											span.label.label-warning  Warning
+										else
+											span.label.label-danger Danger
 									tr
 
 
 			section.col-lg-4.connectedSortable
-				#loading-example.box.box-solid.box-info
+				.box.box-solid.box-info
 					.box-header
 						.pull-right.box-tools
 							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
 								i.fa.fa-minus
 						h3.box-title NGAS SCO Partitions
-					.box-body.table-responsive
-						table#example2.table.table-bordered.table-hover
+					#chat-box.box-body.table-responsive
+						table.table.table-bordered.table-hover
 							thead
 								tr
 									th Host
@@ -156,7 +171,14 @@ block content
 									td #{column.name}
 									td #{column.partition}
 									td #{column.percused}
-									td #{column.status}
+									td 
+										- var myvar = column.status 
+										if myvar == "green"
+											span.label.label-success OK 
+										else if myvar == "yellow"
+											span.label.label-warning  Warning
+										else
+											span.label.label-danger Danger
 									tr
 
 

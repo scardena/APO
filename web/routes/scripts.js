@@ -221,11 +221,11 @@ router.get('/oracle', function(req, res) {
 		}
 		data1 = results[0][0]["data"]
 		data2 = results[1][0]["data"]
-		console.log(data2)
 		data3 = results[2]
 		data4 = results[3]
 		data5 = results[4]
-     		res.render('scripts/oracle',{"userlist": data1,"userlist2": data2,"osfstatus":data3[0]["status"],"scostatus":data4[0]["status"],data5:data5});
+ 		console.log(data3[0]["status"])
+    		res.render('scripts/oracle',{"userlist": data1,"userlist2": data2,"osfstatus":data3[0]["status"],"scostatus":data4[0]["status"],data5:data5});
  	
 	});
 

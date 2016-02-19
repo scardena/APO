@@ -24,29 +24,32 @@ block content
 							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
 								i.fa.fa-minus
 						h3.box-title Server Load
-					.box-body.no-padding
-						.box-body.table-responsive.no-padding
+					.box-body
+						.box-body.table-responsive
 							table.table.table-hover
 								tr
-									th Service Name
-									th
-										span.pull-right Status
+									th.pull-left Service Name
+									th Status
 								tr
-									td SCO NGAS Disk Array
+									td.pull-left SCO NGAS Disk Array
 									td
-										span.label.label-warning.pull-right NO DATA
+										span.label.label-warning NO DATA
 								tr
-									td OSF NGAS Disk Array
+									td.pull-left OSF NGAS Disk Array
 									td
-										span.label.label-warning.pull-right NO DATA
+										span.label.label-warning NO DATA
 								tr
-									td ORACLE OSF
+									td.pull-left ORACLE OSF
 									td
-										span.label.label-success.pull-right #{osfstatus}
+										- var myvar = "asdasd"	
+										if myvar == "CLOSED"
+											span.label.label-success myvar
+										else
+											span.label.label-danger #{myvar}
 								tr
-									td ORACLE SCO
+									td.pull-left ORACLE SCO
 									td
-										span.label.label-success.pull-right #{scostatus}
+										span.label.label-success #{scostatus}
 					// /.box-body
 				// /.box
 				// Custom tabs (Charts with tabs)
@@ -81,11 +84,14 @@ block content
 									td #{user.freegb}
 									td #{user.percused}
 									td #{user.percfree}
-									td #{user.status}	
-										//if #{user.status} == "red"
-										//	span.label.label-warning #{user.status}
-										//else
-										//	span.label.label-success #{user.status}
+									td 
+										- var status = user.status	
+										if status == "green"
+											span.label.label-success OK
+										else if status = "yellow"
+											span.label.label-warning Warning
+										else
+											span.label-label-danger Danger
 									tr
 
 		.row 
@@ -115,7 +121,14 @@ block content
 									td #{user.freegb}
 									td #{user.percused}
 									td #{user.percfree}
-									td #{user.status}
+									td 
+										- var status = user.status	
+										if status == "green"
+											span.label.label-success OK
+										else if status = "yellow"
+											span.label.label-warning Warning
+										else
+											span.label-label-danger Danger
 									tr
 		.row 
 			.col-md-12
@@ -154,8 +167,14 @@ block content
 									td #{metric.currentvalue}
 									//td #{metric.typedisplayname}
 									td #{metric.message}
-									td #{metric.alert}
-									
+									td 
+										- var status = metric.alert	
+										if status == "Warning"
+											span.label.label-warning #{metric.alert}
+										else if status == "Critical"
+											span.label.label-danger #{metric.alert}
+										else
+											span.label.label-info #{metric.alert}
 									tr
 
 
@@ -194,6 +213,12 @@ block javascript
 
 
 	script.
+
+
+
+		document.getElementById("MyElement").className = "MyClass";
+
+		var myvar = "holahola";
 
 		var something = function()
 		{
