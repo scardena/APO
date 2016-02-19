@@ -59,6 +59,54 @@ block content
 					.box-body.chart-responsive
 						#bar-chart4.chart(style='heigth: 400px;')
 
+		.row
+			section.col-lg-6.connectedSortable
+				.box.box-solid.box-info
+					.box-header
+						.pull-right.box-tools
+							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
+								i.fa.fa-minus
+						h3.box-title Ingested data SCO
+					.box-body.table-responsive
+						table.table.table-bordered.table-hover
+							thead
+								tr
+									th Date
+									th Files
+									th TAR	
+									th Size (in MB)
+								tbody
+								each metric, i in res5
+									td #{metric.date}
+									td #{metric.files}
+									td #{metric.tar}
+									td #{metric.size}
+									tr
+
+
+			section.col-lg-6.connectedSortable
+				.box.box-solid.box-info
+					.box-header
+						.pull-right.box-tools
+							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
+								i.fa.fa-minus
+						h3.box-title Ingested data OSF
+					.box-body.table-responsive
+						table.table.table-bordered.table-hover
+							thead
+								tr
+									th Date
+									th Files
+									th Size (in MB)
+								tbody
+								each metric, i in res6
+									td #{metric.date}
+									td #{metric.files}
+									td #{metric.size}
+									tr
+
+
+
 
 
 block javascript

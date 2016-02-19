@@ -221,6 +221,7 @@ router.get('/oracle', function(req, res) {
 		}
 		data1 = results[0][0]["data"]
 		data2 = results[1][0]["data"]
+		console.log(data2)
 		data3 = results[2]
 		data4 = results[3]
 		data5 = results[4]
@@ -303,7 +304,35 @@ router.get('/charts', function(req,res){
                                 else if (result.length){console.log("Hay tabla");}
                         callback(null,result);
                         });
+                },
+
+                function(callback){
+                        var collection = dbObject.collection('ingestionsco');
+                        collection.find().sort({date:-1}).limit(30).toArray(function(err,result){
+
+                                if (err){
+                                        console.log(err);
+                                        callback(err);
+                                }
+                                else if (result.length){console.log("Hay tabla");}
+                        callback(null,result);
+                        });
+                },
+
+
+                function(callback){
+                        var collection = dbObject.collection('ingestionosf');
+                        collection.find().sort({date:-1}).limit(30).toArray(function(err,result){
+
+                                if (err){
+                                        console.log(err);
+                                        callback(err);
+                                }
+                                else if (result.length){console.log("Hay tabla");}
+                        callback(null,result);
+                        });
                 }
+
 
 
 	],
@@ -318,11 +347,14 @@ router.get('/charts', function(req,res){
 			res2 = results[1]
 			res3 = results[2]
 			res4 = results[3]
+			res5 = results[4]
+			res6 = results[5]
 			var data1 = [];
 			var data2 = [];
 			var data3 = [];
 			var data4 = [];
-	
+			
+			console.log(res5)	
 
 
 			//looping the result array in reversed order, so the last 30 items will be passed to jade. same for all charts.
@@ -377,7 +409,7 @@ router.get('/charts', function(req,res){
 			    data4.push({x:date, ycsv:csv,yscience:science});
 			}
 	
-                res.render('scripts/charts',{data1:data1,data2:data2,data3:data3,data4:data4});
+                res.render('scripts/charts',{data1:data1,data2:data2,data3:data3,data4:data4,"res5":res5,"res6":res6});
 
         });
 
