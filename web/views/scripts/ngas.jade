@@ -29,20 +29,22 @@ block content
 									// Progress bars
 									.clearfix
 										span.pull-left SCO
-										small.pull-right #{scoused} / #{scototal} TB 
+										- var percentage = Math.round(scoused/scototal*100)
+										small.pull-right #{scoused} / #{scototal} TB (#{percentage}%)
 									.progress.xs
-										- var percentage = 20
 										.progress-bar.progress-bar-green(style='width: #{percentage}%;')
 									.clearfix
 										span.pull-left OSFBE
-										small.pull-right #{osfBEused} / #{osfBEtotal} TB
+										- var percentage = Math.round(osfBEused/osfBEtotal * 100)
+										small.pull-right #{osfBEused} / #{osfBEtotal} TB (#{percentage}%)
 									.progress.xs
-										.progress-bar.progress-bar-green(style='width: 57%;')
+										.progress-bar.progress-bar-green(style='width: #{percentage}%;')
 									.clearfix
 										span.pull-left OSFFE
-										small.pull-right #{osfFEused} / #{osfFEtotal} TB
+										- var percentage = Math.round(osfFEused/osfFEtotal * 100)
+										small.pull-right #{osfFEused} / #{osfFEtotal} TB (#{percentage}%)
 									.progress.xs
-										.progress-bar.progress-bar-green(style='width: 0%;')
+										.progress-bar.progress-bar-green(style='width: #{percentage}%;')
 								// /.pad
 							// /.col
 						// /.row - inside box
@@ -74,21 +76,6 @@ block content
 
 			// right col
 		// /.row (main row)
-
-
-
-		//.row
-		//	.col-md-12
-		//		// LINE CHART
-		//		.box.box-info
-		//			.box-header
-		//				h3.box-title Pending files from FE
-		//			.box-body.chart-responsive
-		//				#line-chart1.chart(style='height: 400px;')
-		//			// /.box-body
-		//		// /.box
-
-
 
 		.row
 			section.col-lg-4.coonectedSortable 
