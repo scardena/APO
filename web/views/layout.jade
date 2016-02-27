@@ -50,7 +50,7 @@ html
 	body.skin-blue
 		// header logo: style can be found in header.less
 		header.header
-			a.logo(href='/index.html')
+			a.logo(href='index')
 				// Add the class icon to your logo image or logo icon to add the margining
 				| APO Dashboard
 			// Header Navbar: style can be found in header.less
@@ -61,50 +61,24 @@ html
 				section.sidebar
 					// sidebar menu: : style can be found in sidebar.less
 					ul.sidebar-menu
-						li.active
-							a(href='index.html')
-								i.fa.fa-dashboard
-								span General
+						li
 
-						li.treeview
-							a(href='#')
-								i.fa.fa-clock-o
-								span Uptime
-								i.fa.fa-angle-left.pull-right
-							ul.treeview-menu
-								li
-									a(href='/uptime/os')
-										i.fa.fa-angle-double-right
-										| Operating System
-								li
-									a(href='/uptime/network')
-										i.fa.fa-angle-double-right
-										| Network
-								li
-									a(href='/uptimeasd/NGASasdasd')
-										i.fa.fa-angle-double-right
-										| NGAS
-								li
-									a(href='/uptime/db')
-										i.fa.fa-angle-double-right
-										| Database										
-
-
-							a(href='scripts/ngas')
-								i.fa.fa-angle-double-right
+							a(href='ngas')
+								i.fa.fa-cloud
 								| NGAS
-							a(href='scripts/oracle')
-								i.fa.fa-windows
+							a(href='oracle')
+								i.fa.fa-database
 								| ORACLE
-							a(href='scripts/casaops')
+							a(href='casaops')
 								i.fa.fa-angle-double-right
 								| CASA/SCIOPS
-							a(href='scripts/topusers')
+							a(href='topusers')
 								i.fa.fa-file
 								| Top Users
-							a(href='scripts/charts')
-								i.fa.fa-area-chart
+							a(href='charts')
+								i.fa.fa-bar-chart
 								| Charts
+							a(href='hardware-failures')
 
 
 

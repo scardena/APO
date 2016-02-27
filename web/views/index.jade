@@ -14,22 +14,252 @@ block content
 	// Main content
 	section.content
 		.row
-			#loading-example.box.box-danger
-				.box-header
-					h3.box-title ARCS Link State
-				.box-body.no-padding
-					.row
-						.col-sm-12
-							.pad
-								.clearfix
-									span.pull-left NRAO, ESO, NAOJ
-								#chartContainer A chart will render here
-					.row
-						.col-sm-12
-							.pad
-								.clearfix
-									span.pull-left Chile
-								#chartChile A chart will render here	
+			.col-sm-6
+				.box.box-solid.box-info
+					.box-header
+						h2.box-title ASDMs Ingested last 15 days
+					.box-body.chart-responsive
+						#bar-chart1.chart(style='height: 150px;')
+			.col-lg-6
+				.box.box-solid.box-info
+					.box-header
+						h2.box-title Data Ingested last 15 days
+					.box-body.chart-responsive
+						#bar-chart2.chart(style='height: 150px;')
+
+
+
+		.row
+			.col-lg-4.col-xs-6
+				.small-box.bg-aqua
+					.inner
+						h3
+							| 0 Files
+						p
+							| Backlog NA
+					.icon
+						i.fa.fa-file-o
+					.a.small-box-footer(href='#')
+						| Number of files      
+						i.fa.fa-arrow-circle-right
+			.col-lg-4.col-xs-6
+				.small-box.bg-green
+					.inner
+						h3
+							| 3 Files
+						p
+							| Backlog EU
+					.icon
+						i.fa.fa-file-o
+					.a.small-box-footer(href='#')
+						| Number of files   
+						i.fa.fa-arrow-circle-right
+
+			.col-lg-4.col-xs-6
+				.small-box.bg-red
+					.inner
+						h3
+							| 150 Files
+						p
+							| Backlog EA
+					.icon
+						i.fa.fa-warning
+					.a.small-box-footer(href='index')
+						| Number of files    
+						i.fa.fa-arrow-circle-right
+
+
+
+			.col-sm-6
+				.box.box-solid.box-info.no-padding
+					.box-header
+						h3.box-title NGAS Status
+					.box-body.no-padding
+						.box-body.table-responsive.no-padding
+							table.table.table-hover
+								tr
+									th Service name
+									th Status
+								tr
+									td NGAS SCO
+									td
+										.icon
+											i.fa.fa-warning         
+												span.label.label-warning NO DATA
+								tr
+									td NGAS OSF
+									td
+										span.label.label-warning NO DATA		
+								tr
+									td NGAS OSF TestBench
+									td
+										span.label.label-warning NO DATA		
+
+
+
+			.col-sm-6
+				.box.box-solid.box-info.no-padding
+					.box-header
+						h2.box-title NGAS Total load
+					.box-body
+						.clearfix
+							span.pull-left SCO
+							- var percentage = Math.round(scoused/scototal*100)
+							smal.pull-right #{scoused} / #{scototal} GB (#{percentage}) %
+						.progress.xs		
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+						.clearfix
+							span.pull-left OSF BackEnd
+							- var percentage = Math.round(osfBEused/osfBEtotal*100)
+							smal.pull-right #{osfBEused} / #{osfBEtotal} GB (#{percentage})%
+						.progress.xs		
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+						.clearfix
+							span.pull-left OSF FrontEnd
+							- var percentage = Math.round(osfFEused/osfFEtotal*100)
+							smal.pull-right #{osfFEused} / #{osfFEtotal} GB (#{percentage})%
+						.progress.xs		
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
+
+		.row
+			.col-lg-3
+				.small-box.bg-aqua
+					.inner
+						h3
+							| #{duplicatefiles} Files
+						p
+							| Duplicated files SCO
+					.icon
+						i.fa.fa-file-o
+					.a.small-box-footer(href='#')
+						| Number of files      
+						i.fa.fa-arrow-circle-right
+			.col-lg-3
+				.small-box.bg-green
+					.inner
+						h3
+							| #{zerobytes} Files
+						p
+							| Zero Bytes Files
+					.icon
+						i.fa.fa-file-o
+					.a.small-box-footer(href='#')
+						| Number of files   
+						i.fa.fa-arrow-circle-right
+
+			.col-lg-3
+				.small-box.bg-yellow
+					.inner
+						h3
+							| #{archivesize} TB
+						p
+							| DB SCO Archive Size
+					.icon
+						i.fa.fa-cube
+					.a.small-box-footer(href='index')
+						| Number of files    
+						i.fa.fa-arrow-circle-right
+
+			.col-lg-3
+				.small-box.bg-aqua
+					.inner
+						h3
+							| #{fileinfenotinbe} Files
+						p
+							| Files in BE not in FE
+					.icon
+						i.fa.fa-file-o
+					.a.small-box-footer(href='index')
+						| Number of files    
+						i.fa.fa-arrow-circle-right
+
+
+			.col-lg-6
+				.box.box-solid.box-info.no-padding
+					.box-header
+						h2.box-title Oracle ASM groups
+					.box-body
+						.clearfix
+							span.pull-left SCO ASM GROUP3
+							- var group3scoused = Math.round(group3scototal-group3scofree)
+							- var percentage = Math.round(group3scoused/group3scototal*100)
+							smal.pull-right #{Math.round(group3scoused)} / #{Math.round(group3scototal)} GB (#{percentage})%
+						.progress.xs		
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+				
+
+						.clearfix
+							span.pull-left SCO ASM GROUP6
+							- var group6scoused = Math.round(group6scototal-group6scofree)
+							- var percentage = Math.round(group6scoused/group6scototal*100)
+							smal.pull-right #{Math.round(group6scoused)} / #{Math.round(group6scototal)} GB (#{percentage})%
+						.progress.xs		
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+				
+
+						.clearfix
+							span.pull-left OSF ASM GROUP3
+							- var group3osfused = Math.round(group3osftotal-group3osffree)
+							- var percentage = Math.round(group3osfused/group3osftotal*100)
+							smal.pull-right #{Math.round(group3osfused)} / #{Math.round(group3osftotal)} GB (#{percentage})%
+						.progress.xs		
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+				
+
+						.clearfix
+							span.pull-left OSF ASM GROUP6
+							- var group6osfused = Math.round(group6osftotal-group6osffree)
+							- var percentage = Math.round(group6osfused/group6osftotal*100)
+							smal.pull-right #{Math.round(group6osfused)} / #{Math.round(group6osftotal)} GB (#{percentage})%
+						.progress.xs		
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+			.col-sm-6
+				.box.box-solid.box-info.no-padding
+					.box-header
+						h3.box-title ORACLE Status
+					.box-body.no-padding
+						.box-body.table-responsive.no-padding
+							table.table.table-hover
+								tr
+									th Service name
+									th Status
+								tr
+									td SCO Oracle NGAS Disks Arrays
+									td
+										.icon
+											i.fa.fa-warning         
+												span.label.label-warning NO DATA
+								tr
+									td OSF Oracle NGAS Disks Array
+									td
+										span.label.label-warning NO DATA		
+								tr
+									td Oracle SCO
+									td
+										span.label.label-warning NO DATA		
+								tr
+									td Oracle OSF
+									td
+										span.label.label-warning NO DATA		
+
+
+
+		//.row
+		//	.box.box-danger
+		//		.box-header
+		//			h3.box-title ARCS Link State
+		//		.box-body.no-padding
+		//			.row
+		//				.col-sm-12
+		//					.pad
+		//						.clearfix
+		//							span.pull-left NRAO, ESO, NAOJ
+		//						#chartContainer A chart will render here
 									
 
 
@@ -73,6 +303,32 @@ block javascript
 	script(src='/js/AdminLTE/demo.js', type='text/javascript')
 
 	script.
+
+		Morris.Bar({
+			element: 'bar-chart1',
+			data: !{JSON.stringify(chart1)},
+			xkey: 'x',
+			ykeys: ['ytar','yscience'],
+			labels: ['TAR','Science'],
+			stacked: 'true',
+			hideHover: 'auto',
+			barColors: ["#f56954", "#00a65a"]
+		});
+
+
+		Morris.Bar({
+			element: 'bar-chart2',
+			data: !{JSON.stringify(chart2)},
+			xkey: 'x',
+			ykeys: ['ycsv','yscience'],
+			labels: ['CSV','Science'],
+			stacked: 'true',
+			hideHover: 'auto',
+			barColors: ["#f56954", "#00a65a"]
+
+		});
+
+
 		FusionCharts.ready(function(){
 			var salesByState = new FusionCharts({
 			"type": "maps/chile",

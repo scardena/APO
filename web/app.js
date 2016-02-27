@@ -4,12 +4,33 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var config = require('./config');
 var async = require('async');
 
-var routes = require('./routes/index');
 
-var scripts = require('./routes/scripts');
-var uptime = require('./routes/uptime');
+
+// Database
+var mongodb = require("mongodb");
+var dbHost = config.database;
+var dbObject;
+var MongoClient = mongodb.MongoClient;
+
+MongoClient.connect(dbHost, function(err, db)
+{
+	if ( err ) {console.log("unable to connect to mongodb, error", err)}
+	else {console.log("conexion establecida")}
+     	dbObject = db;
+});
+     
+
+
+
+var routes = require('./routes/index');
+var ngas = require('./routes/ngas');
+var charts = require('./routes/charts');
+var oracle = require('./routes/oracle')
+
+var api = require('./routes/api');
 
 var app = express();
 
@@ -25,9 +46,25 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Make our db accessible to our router
+app.use(function(req,res,next)
+{
+     req.db = dbObject;
+     next();
+});
+
+
+
+
+
 app.use('/', routes);
-app.use('/scripts',scripts);
-app.use('/uptime',uptime);
+app.use('/index',routes);
+app.use('/ngas',ngas);
+app.use('/charts',charts);
+app.use('/oracle',oracle);
+app.use('/api',api);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
