@@ -45,6 +45,55 @@ router.get('/', function(req, res)
                 },
 
 
+
+
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////Backlog Info/////////////////////////7/////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
+                function(callback){
+                        var db = req.db;
+                        var collection = db.collection('monitoring');
+                        collection.find({servicename:"backlogNA"}).sort({timestamp:-1}).limit(1).toArray(function(err,result)
+                        {
+                                if (err){console.log(err);}
+                                else if (result.length){console.log("Hay resultados");}
+                                else {console.log("no se encontro nada");}
+                                callback(null,result);
+                        });
+                },
+
+		
+
+                function(callback){
+                        var db = req.db;
+                        var collection = db.collection('monitoring');
+                        collection.find({servicename:"backlogEU"}).sort({timestamp:-1}).limit(1).toArray(function(err,result)
+                        {
+                                if (err){console.log(err);}
+                                else if (result.length){console.log("Hay resultados");}
+                                else {console.log("no se encontro nada");}
+                                callback(null,result);
+                        });
+                },
+
+	
+
+                function(callback){
+                        var db = req.db;
+                        var collection = db.collection('monitoring');
+                        collection.find({servicename:"backlogEA"}).sort({timestamp:-1}).limit(1).toArray(function(err,result)
+                        {
+                                if (err){console.log(err);}
+                                else if (result.length){console.log("Hay resultados");}
+                                else {console.log("no se encontro nada");}
+                                callback(null,result);
+                        });
+                },
+
+
+
+
+
 	///////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////Oracle Data (asms and xmlstore)///////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -175,6 +224,35 @@ router.get('/', function(req, res)
                 },
 
 
+	
+                function(callback){
+                        var db = req.db;
+                        var collection = db.collection('tablespacessco');
+                        collection.find({},{data:{$elemMatch:{name:"XMLSTORE"}}}).sort({timestamp:-1}).limit(1).toArray(function(err,result)
+                        {
+                                if (err){console.log(err);}
+                                else if (result.length){console.log("Hay resultados");}
+                                else {console.log("no se encontro nada");}
+                                callback(null,result);
+                        });
+                },
+
+	
+                function(callback){
+                        var db = req.db;
+                        var collection = db.collection('tablespacesosf');
+                        collection.find({},{data:{$elemMatch:{name:"XMLSTORE"}}}).sort({timestamp:-1}).limit(1).toArray(function(err,result)
+                        {
+                                if (err){console.log(err);}
+                                else if (result.length){console.log("Hay resultados");}
+                                else {console.log("no se encontro nada");}
+                                callback(null,result);
+                        });
+                }
+
+
+
+
 
 
 
@@ -198,23 +276,30 @@ router.get('/', function(req, res)
 			data1 = results[0]
 			data2 = results[1]
 
-			//oracle ASM groups
+			//backlog info
 			data3 = results[2]
 			data4 = results[3]
-
-			//ngas space 
 			data5 = results[4]
+			
+			//oracle ASM groups
 			data6 = results[5]
 			data7 = results[6]
 
-			//files related variables
+			//ngas space 
 			data8 = results[7]
 			data9 = results[8]
 			data10 = results[9]
+
+			//files related variables
 			data11 = results[10]
+			data12 = results[11]
+			data13 = results[12]
+			data14 = results[13]
 
 			
-
+			//XMLSTORE info
+			data15 = results[14]
+			data16 = results[15]
 
 			///////////////////////////////////////
 			//Here I deal with the data variables//
@@ -248,8 +333,10 @@ router.get('/', function(req, res)
 
 			}  
 		
+		
 
-			var scoasm = data3[0]["data"]
+
+			var scoasm = data6[0]["data"]
 			
 			for (index in scoasm)
 			{
@@ -267,7 +354,7 @@ router.get('/', function(req, res)
 			}
 
 	
-			var osfasm = data4[0]["data"]
+			var osfasm = data7[0]["data"]
 			for (index in osfasm)
 			{
 				var record = osfasm[index];
@@ -282,30 +369,71 @@ router.get('/', function(req, res)
 					var group3osffree = record["free"]
 				}
 			}
-		
-
-
-			console.log(data8[0]["ArchiveSize"])
-			console.log(data9[0]["pendingfile"])
-			console.log(data10[0]["pendingfiles"])
-			console.log(data11[0]["zerobytes"])
 	
+
+
+			var xmlscoused = Number(data15[0]["data"][0]["mbused"])
+			var xmlscofree = Number(data15[0]["data"][0]["mbfree"])
+			var xmlsconotall = Number(data15[0]["data"][0]["mbnotall"])
+			var xmlscototal = Number(data15[0]["data"][0]["mbtotal"]) 
+			var xmlscofull = Number(data15[0]["data"][0]["mbtotal"]) + xmlsconotall
+			//contains not allocated space
+			var xmlscofreefull = xmlscofree + xmlsconotall
+
+			var xmlosfused = Number(data16[0]["data"][0]["mbused"])
+			var xmlosffree = Number(data16[0]["data"][0]["mbfree"])
+			var xmlosfnotall = Number(data16[0]["data"][0]["mbnotall"])
+			var xmlosftotal = Number(data16[0]["data"][0]["mbtotal"])
+			var xmlosffull = Number(data16[0]["data"][0]["mbtotal"]) + xmlosfnotall
+			//contains not allocated space
+			var xmlosffreefull = xmlosffree + xmlosfnotall	
+
+		
+			var xmlscostatus = "OK"
+			if (xmlscofreefull < 32 && xmlscofreefull > 3 ) {xmlscostatus = "WARNING"}
+			else if (xmlscofreefull <= 3) {xmlscostatus = "CRITICAL"}
+
+
+	
+			var xmlosfstatus = "OK"
+			if (xmlosffreefull < 32 && xmlosffreefull > 3 ) {xmlosfstatus = "WARNING"}
+			else if (xmlosffreefull <= 3) {xmlosfstatus = "CRITICAL"}
+
+
+
 
 
 			res.render('index',{
 				chart1:chart1,
 				chart2:chart2,
-				"group3scofree":group3scofree,"group3scototal":group3scototal,
-				"group6scofree":group6scofree,"group6scototal":group6scototal,
-				"group3osffree":group3osffree,"group3osftotal":group3osftotal,
-				"group6osffree":group6osffree,"group6osftotal":group6osftotal,
-				"scoused": data5[0]["usedsize"],"scototal":data5[0]["totsize"],
-  				"osfBEused": data6[0]["usedsize"],"osfBEtotal":data6[0]["totsize"],
-                        	"osfFEused": data7[0]["usedsize"],"osfFEtotal":data7[0]["totsize"],
-				"archivesize": data8[0]["ArchiveSize"],
-				"duplicatefiles": data9[0]["pendingfile"],
-				"fileinfenotinbe": data10[0]["pendingfiles"],
-				"zerobytes": data11[0]["zerobytes"]
+				"group3scofree":group3scofree,"group3scototal":group3scototal,"scog3statusjs":"OK",
+				"group6scofree":group6scofree,"group6scototal":group6scototal,"scog6statusjs":"OK",
+				"group3osffree":group3osffree,"group3osftotal":group3osftotal,"osfg3statusjs":"OK",
+				"group6osffree":group6osffree,"group6osftotal":group6osftotal,"osfg6statusjs":"OK",
+				"backlogNA":data3[0]["pendingfile"],
+				"statusNA":data3[0]["status"],
+				"sizeNA":data3[0]["size"],
+				"backlogEU":data4[0]["pendingfile"],
+				"statusEU":data4[0]["status"],
+				"sizeEU":data4[0]["size"],
+				"backlogEA":data5[0]["pendingfile"],
+				"statusEA":data5[0]["status"],
+				"sizeEA":data5[0]["size"],
+				"scoused": data8[0]["usedsize"],"scototal":data8[0]["totsize"],
+  				"osfBEused": data9[0]["usedsize"],"osfBEtotal":data9[0]["totsize"],
+                        	"osfFEused": data10[0]["usedsize"],"osfFEtotal":data10[0]["totsize"],
+				"archivesize": data11[0]["ArchiveSize"],
+				"duplicatefiles": data12[0]["pendingfile"],
+				"fileinfenotinbe": data13[0]["pendingfiles"],
+				"zerobytes": data14[0]["zerobytes"],
+				"xmlscoused": xmlscoused,
+				"xmlscofree": xmlscofreefull,
+				"xmlscototal": xmlscofull,
+				"xmlscostatus": xmlscostatus,
+				"xmlosfused": xmlosfused,
+				"xmlosftotal": xmlosffull,
+				"xmlosffree": xmlosffreefull,
+				"xmlosfstatus": xmlosfstatus
 			});	
 
 		//end function(err,results)

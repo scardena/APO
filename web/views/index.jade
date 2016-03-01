@@ -31,43 +31,80 @@ block content
 
 		.row
 			.col-lg-4.col-xs-6
-				.small-box.bg-aqua
-					.inner
-						h3
-							| 0 Files
-						p
-							| Backlog NA
-					.icon
-						i.fa.fa-file-o
-					.a.small-box-footer(href='#')
-						| Number of files      
-						i.fa.fa-arrow-circle-right
-			.col-lg-4.col-xs-6
-				.small-box.bg-green
-					.inner
-						h3
-							| 3 Files
-						p
-							| Backlog EU
-					.icon
-						i.fa.fa-file-o
-					.a.small-box-footer(href='#')
-						| Number of files   
-						i.fa.fa-arrow-circle-right
+				- var myicon = statusNA
+				if myicon == "OK" 
+					.small-box.bg-green
+						.inner
+							h3
+								| Backlog NA 
+							h2
+								| #{backlogNA} Files, #{sizeNA} GB 
+						.icon
+							i.fa.fa-file-o
+
+
+
+
+				else
+					.small-box.bg-red
+						.inner
+							h3
+								| Backlog NA
+							h2
+								| #{backlogNA} Files, #{sizeNA} GB
+						.icon-small
+							i.fa.fa-warning
+
+
+
+
 
 			.col-lg-4.col-xs-6
-				.small-box.bg-red
-					.inner
-						h3
-							| 150 Files
-						p
-							| Backlog EA
-					.icon
-						i.fa.fa-warning
-					.a.small-box-footer(href='index')
-						| Number of files    
-						i.fa.fa-arrow-circle-right
+				- var myicon = statusEU
+				if myicon == "OK" 
+					.small-box.bg-green
+						.inner
+							h3
+								| Backlog EU
+							h2
+								| #{backlogEU} Files, #{sizeEU} GB
+						.icon
+							i.fa.fa-file-o
 
+
+				else
+					.small-box.bg-red
+						.inner
+							h3
+								| Backlog EU
+							h2
+								| #{backlogEU} Files, #{sizeEU} GB
+						.icon
+							i.fa.fa-warning
+
+
+
+			.col-lg-4.col-xs-6
+				- var myicon = statusEA
+				if myicon == "OK" 
+					.small-box.bg-green
+						.inner
+							h3
+								| Backlog EA
+							h2
+								| #{backlogEA} Files, #{sizeEA} GB
+						.icon
+							i.fa.fa-file-o
+
+				else
+					.small-box.bg-red
+						.inner
+							h3
+								| Backlog EA
+							h2
+								| #{backlogEA} Files, #{sizeEA} GB
+						.icon
+							i.fa.fa-warning
 
 
 			.col-sm-6
@@ -83,17 +120,15 @@ block content
 								tr
 									td NGAS SCO
 									td
-										.icon
-											i.fa.fa-warning         
-												span.label.label-warning NO DATA
+										span.label.label-success OK
 								tr
 									td NGAS OSF
 									td
-										span.label.label-warning NO DATA		
+										span.label.label-success OK		
 								tr
 									td NGAS OSF TestBench
 									td
-										span.label.label-warning NO DATA		
+										span.label.label-success OK	
 
 
 
@@ -170,7 +205,7 @@ block content
 						h3
 							| #{fileinfenotinbe} Files
 						p
-							| Files in BE not in FE
+							| Files in FE not in BE
 					.icon
 						i.fa.fa-file-o
 					.a.small-box-footer(href='index')
@@ -183,69 +218,191 @@ block content
 					.box-header
 						h2.box-title Oracle ASM groups
 					.box-body
-						.clearfix
-							span.pull-left SCO ASM GROUP3
-							- var group3scoused = Math.round(group3scototal-group3scofree)
-							- var percentage = Math.round(group3scoused/group3scototal*100)
-							smal.pull-right #{Math.round(group3scoused)} / #{Math.round(group3scototal)} GB (#{percentage})%
-						.progress.xs		
-							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
-				
+						- var scog3status = scog3statusjs
+						if scog3status == "OK"
+							.clearfix
+								span.pull-left SCO ASM GROUP3
+								- var group3scoused = Math.round(group3scototal-group3scofree)
+								- var percentage = Math.round(group3scoused/group3scototal*100)
+								smal.pull-right #{Math.round(group3scoused)} / #{Math.round(group3scototal)} GB (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+	
+						else if scog3status == "WARNING"	
+							.clearfix
+								span.pull-left SCO ASM GROUP3
+								- var group3scoused = Math.round(group3scototal-group3scofree)
+								- var percentage = Math.round(group3scoused/group3scototal*100)
+								smal.pull-right #{Math.round(group3scoused)} / #{Math.round(group3scototal)} GB (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-warning(style='width: #{percentage}%')
+		
+						else if scog3status == "CRITICAL"	
+							.clearfix
+								span.pull-left SCO ASM GROUP3
+								- var group3scoused = Math.round(group3scototal-group3scofree)
+								- var percentage = Math.round(group3scoused/group3scototal*100)
+								smal.pull-right #{Math.round(group3scoused)} / #{Math.round(group3scototal)} GB (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-danger(style='width: #{percentage}%')
 
-						.clearfix
-							span.pull-left SCO ASM GROUP6
-							- var group6scoused = Math.round(group6scototal-group6scofree)
-							- var percentage = Math.round(group6scoused/group6scototal*100)
-							smal.pull-right #{Math.round(group6scoused)} / #{Math.round(group6scototal)} GB (#{percentage})%
-						.progress.xs		
-							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
-				
 
-						.clearfix
-							span.pull-left OSF ASM GROUP3
-							- var group3osfused = Math.round(group3osftotal-group3osffree)
-							- var percentage = Math.round(group3osfused/group3osftotal*100)
-							smal.pull-right #{Math.round(group3osfused)} / #{Math.round(group3osftotal)} GB (#{percentage})%
-						.progress.xs		
-							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
-				
+	
+						- var scog6status = scog6statusjs
+						if scog6status == "OK"
+							.clearfix
+								span.pull-left SCO ASM GROUP6
+								- var group6scoused = Math.round(group6scototal-group6scofree)
+								- var percentage = Math.round(group6scoused/group6scototal*100)
+								smal.pull-right #{Math.round(group6scoused)} / #{Math.round(group6scototal)} GB (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+	
+						else if scog6status == "WARNING"
+							.clearfix
+								span.pull-left SCO ASM GROUP6
+								- var group6scoused = Math.round(group6scototal-group6scofree)
+								- var percentage = Math.round(group6scoused/group6scototal*100)
+								smal.pull-right #{Math.round(group6scoused)} / #{Math.round(group6scototal)} GB (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-warning(style='width: #{percentage}%')
+	
+						else if scog6status == "CRITICAL"
+							.clearfix
+								span.pull-left SCO ASM GROUP6
+								- var group6scoused = Math.round(group6scototal-group6scofree)
+								- var percentage = Math.round(group6scoused/group6scototal*100)
+								smal.pull-right #{Math.round(group6scoused)} / #{Math.round(group6scototal)} GB (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-danger(style='width: #{percentage}%')
+	
 
-						.clearfix
-							span.pull-left OSF ASM GROUP6
-							- var group6osfused = Math.round(group6osftotal-group6osffree)
-							- var percentage = Math.round(group6osfused/group6osftotal*100)
-							smal.pull-right #{Math.round(group6osfused)} / #{Math.round(group6osftotal)} GB (#{percentage})%
-						.progress.xs		
-							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+						- var osfg3status = osfg3statusjs					
+						if osfg3status == "OK"
+							.clearfix
+								span.pull-left OSF ASM GROUP3
+								- var group3osfused = Math.round(group3osftotal-group3osffree)
+								- var percentage = Math.round(group3osfused/group3osftotal*100)
+								smal.pull-right #{Math.round(group3osfused)} / #{Math.round(group3osftotal)} gb (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+						if osfg3status == "WARNING"
+							.clearfix
+								span.pull-left OSF ASM GROUP3
+								- var group3osfused = Math.round(group3osftotal-group3osffree)
+								- var percentage = Math.round(group3osfused/group3osftotal*100)
+								smal.pull-right #{Math.round(group3osfused)} / #{Math.round(group3osftotal)} gb (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-danger(style='width: #{percentage}%')
+	
+						if osfg3status == "CRITICAL"	
+							.clearfix
+								span.pull-left OSF ASM GROUP3
+								- var group3osfused = Math.round(group3osftotal-group3osffree)
+								- var percentage = Math.round(group3osfused/group3osftotal*100)
+								smal.pull-right #{Math.round(group3osfused)} / #{Math.round(group3osftotal)} gb (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-danger(style='width: #{percentage}%')
+
+
+
+						- var osfg6status = osfg6statusjs
+						if osfg6status == "OK"
+							.clearfix
+								span.pull-left OSF ASM GROUP6
+								- var group6osfused = Math.round(group6osftotal-group6osffree)
+								- var percentage = Math.round(group6osfused/group6osftotal*100)
+								smal.pull-right #{Math.round(group6osfused)} / #{Math.round(group6osftotal)} GB (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+					
+						if osfg6status == "WARNING"
+							.clearfix
+								span.pull-left OSF ASM GROUP6
+								- var group6osfused = Math.round(group6osftotal-group6osffree)
+								- var percentage = Math.round(group6osfused/group6osftotal*100)
+								smal.pull-right #{Math.round(group6osfused)} / #{Math.round(group6osftotal)} GB (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-warning(style='width: #{percentage}%')
+					
+	
+						if osfg6status == "CRITICAL"
+							.clearfix
+								span.pull-left OSF ASM GROUP6
+								- var group6osfused = Math.round(group6osftotal-group6osffree)
+								- var percentage = Math.round(group6osfused/group6osftotal*100)
+								smal.pull-right #{Math.round(group6osfused)} / #{Math.round(group6osftotal)} GB (#{percentage})%
+							.progress.xs		
+								.progress-bar.progress-bar-danger(style='width: #{percentage}%')
+					
+	
 
 			.col-sm-6
 				.box.box-solid.box-info.no-padding
 					.box-header
-						h3.box-title ORACLE Status
-					.box-body.no-padding
-						.box-body.table-responsive.no-padding
-							table.table.table-hover
-								tr
-									th Service name
-									th Status
-								tr
-									td SCO Oracle NGAS Disks Arrays
-									td
-										.icon
-											i.fa.fa-warning         
-												span.label.label-warning NO DATA
-								tr
-									td OSF Oracle NGAS Disks Array
-									td
-										span.label.label-warning NO DATA		
-								tr
-									td Oracle SCO
-									td
-										span.label.label-warning NO DATA		
-								tr
-									td Oracle OSF
-									td
-										span.label.label-warning NO DATA		
+						h3.box-title TableSpace XMLSTORE Load (Not Allocated space included)
+					.box-body
+						- var scostatus = xmlscostatus
+						if scostatus == "OK"
+
+							.clearfix
+								span.pull-left XMLSTORE SCO, #{xmlscofree} GiB Free
+								- var percentage = Math.round(xmlscoused/xmlscototal*100)
+								smal.pull-right #{xmlscoused} / #{xmlscototal} GiB (#{percentage})% 
+							.progress.xs		
+								.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+						else if scostatus == "WARNING"	
+
+							.clearfix
+								span.pull-left XMLSTORE SCO, #{xmlscofree} GiB Free
+								- var percentage = Math.round(xmlscoused/xmlscototal*100)
+								smal.pull-right #{xmlscoused} / #{xmlscototal} GiB (#{percentage})% 
+							.progress.xs		
+								.progress-bar.progress-bar-yellow(style='width: #{percentage}%')
+
+						else if scostatus == "CRITICAL"	
+
+							.clearfix
+								span.pull-left XMLSTORE SCO, #{xmlscofree} GiB Free
+								- var percentage = Math.round(xmlscoused/xmlscototal*100)
+								smal.pull-right #{xmlscoused} / #{xmlscototal} GiB (#{percentage})% 
+							.progress.xs		
+								.progress-bar.progress-bar-danger(style='width: #{percentage}%')
+
+
+
+
+
+						- var osfstatus = xmlosfstatus
+						if xmlosfstatus == "OK" 
+							.clearfix
+								span.pull-left XMLSTORE OSF, #{xmlosffree} GiB Free
+								- var percentage = Math.round(xmlosfused/xmlosftotal*100)
+								smal.pull-right #{xmlosfused} / #{xmlosftotal} GiB (#{percentage})% 
+
+							.progress.xs		
+								.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+					
+						else if xmlosfstatus == "WARNING"
+							.clearfix
+								span.pull-left XMLSTORE OSF, #{xmlosffree} GiB Free
+								- var percentage = Math.round(xmlosfused/xmlosftotal*100)
+								smal.pull-right #{xmlosfused} / #{xmlosftotal} GiB (#{percentage})% 
+
+							.progress.xs		
+								.progress-bar.progress-bar-yellow(style='width: #{percentage}%')
+	
+						else if xmlosfstatus == "CRITICAL"
+							.clearfix
+								span.pull-left XMLSTORE OSF, #{xmlosffree} GiB Free
+								- var percentage = Math.round(xmlosfused/xmlosftotal*100)
+								smal.pull-right #{xmlosfused} / #{xmlosftotal} GiB (#{percentage})% 
+
+							.progress.xs		
+								.progress-bar.progress-bar-danger(style='width: #{percentage}%')
+					
 
 
 
