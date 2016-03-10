@@ -69,17 +69,15 @@ Now we can see our new db with:
 `show dbs`
 
 
-
-
 <h1>Inserting data into mongoDB from a python script</h1>
 Create a python script with the following code inside:
 
-`
+```python
 from pymongo import MongoClient
 from datetime import datetime
 
 client = MongoClient()
-db = client.test
+db = client.testdb
 
 servicename = "myService"
 data = 123456
@@ -89,7 +87,10 @@ result = db.testing.insert_one({
 	"data": data,
 	"timestamp" : datetime.now()
 )}
-`
+```
+
+Note that we do not need to create a collection before, since if it not exists, it creates while inserting records.
+
 
 <h1>Adding a new dashboard</h1><br>
 1)Copy the file routeTemplate.js and rename it to the name of your new dashboard route: <br>
@@ -104,9 +105,21 @@ and letting node use the route in the Mounting Middlewares section: <br>
 `app.use('/newdashboard',newdashboard);` <br>
 
 <h1>Creating a route that connects to mongoDB</h1>
-There is a template file also, that has all the basic stuff to retrieve data from mongo. Most of the routes (all of them actually) requires multiple calls to different collections, or multiple http calls, so that's why I use the async module, because it allows to make this calls in a asynchronous way, and then retrieve the results, do whatever I want with them, and then send the data to the view..<br>
+There is a template file also, that contains all the basic stuff to retrieve data from mongo. Most of the routes (all of them actually) requires multiple calls to different collections, or multiple http calls, so that's why I use the async module, because it allows to make this calls in a asynchronous way, and then retrieve the results, do whatever I want with them, and then send the data to the view.<br>
 So let's get started. Copy the file routeTemplate.js and rename it to the name of your new dashboard route: <br>
-cp
+`cp routeTemplate.js newdashboard.js`
+and add the following inside the router.get function:
+
+```javascript
+var db = req.db;
+var collection = db.collection('testing');
+collection.find().toArray(function(err,result){
+	if (err) {console.log(err)}
+	else {console.log("We've got results!")}
+
+	res.render('newdashboard',{data:data})
+});
+```
 
 <h1> Creating our first widget </h1> 
 
