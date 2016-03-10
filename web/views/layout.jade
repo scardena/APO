@@ -3,6 +3,8 @@ html
 	head
 		meta(charset='UTF-8')
 		title APO | Dashboard
+		//refresh every half hour
+		meta(http-equiv="refresh" content="1800")
 		meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
 		// bootstrap 3.0.2
 		link(href='/css/bootstrap.min.css', rel='stylesheet', type='text/css')
@@ -69,17 +71,15 @@ html
 							a(href='oracle')
 								i.fa.fa-database
 								| ORACLE
-							a(href='casaops')
-								i.fa.fa-angle-double-right
-								| CASA/SCIOPS
 							a(href='topusers')
 								i.fa.fa-file
 								| Top Users
 							a(href='charts')
 								i.fa.fa-bar-chart
-								| Charts
-							a(href='hardware-failures')
-
+								| Ingestion Charts
+							a(href='map')
+								i.fa.fa-map
+								| Network Status
 
 
 				// /.sidebar

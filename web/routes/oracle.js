@@ -68,7 +68,7 @@ router.get('/', function(req, res) {
 		function(callback){
 			var db = req.db;
     			var collection = db.collection('oraclestatus');
-    			collection.find({}).sort({timestamp:-1}).limit(10).toArray(function(err,result){
+    			collection.find({}).sort({timestamp:-1}).limit(30).toArray(function(err,result){
 
 				if (err){
 					console.log(err);

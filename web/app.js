@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var async = require('async');
-
+var http = require('http');
 
 
 // Database
@@ -29,7 +29,8 @@ var routes = require('./routes/index');
 var ngas = require('./routes/ngas');
 var charts = require('./routes/charts');
 var oracle = require('./routes/oracle')
-
+var topusers = require('./routes/topusers');
+var map = require('./routes/map');
 var api = require('./routes/api');
 
 var app = express();
@@ -63,6 +64,9 @@ app.use('/ngas',ngas);
 app.use('/charts',charts);
 app.use('/oracle',oracle);
 app.use('/api',api);
+app.use('/topusers',topusers);
+app.use('/map',map);
+
 
 
 // catch 404 and forward to error handler

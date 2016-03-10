@@ -17,13 +17,13 @@ block content
 			.col-sm-6
 				.box.box-solid.box-info
 					.box-header
-						h2.box-title ASDMs Ingested last 15 days
+						h2.box-title Data ingested last 15 days
 					.box-body.chart-responsive
 						#bar-chart1.chart(style='height: 150px;')
 			.col-lg-6
 				.box.box-solid.box-info
 					.box-header
-						h2.box-title Data Ingested last 15 days
+						h2.box-title ASDMs Ingested last 15 days
 					.box-body.chart-responsive
 						#bar-chart2.chart(style='height: 150px;')
 
@@ -107,32 +107,9 @@ block content
 							i.fa.fa-warning
 
 
-			.col-sm-6
-				.box.box-solid.box-info.no-padding
-					.box-header
-						h3.box-title NGAS Status
-					.box-body.no-padding
-						.box-body.table-responsive.no-padding
-							table.table.table-hover
-								tr
-									th Service name
-									th Status
-								tr
-									td NGAS SCO
-									td
-										span.label.label-success OK
-								tr
-									td NGAS OSF
-									td
-										span.label.label-success OK		
-								tr
-									td NGAS OSF TestBench
-									td
-										span.label.label-success OK	
 
 
-
-			.col-sm-6
+			.col-sm-12
 				.box.box-solid.box-info.no-padding
 					.box-header
 						h2.box-title NGAS Total load
@@ -140,21 +117,21 @@ block content
 						.clearfix
 							span.pull-left SCO
 							- var percentage = Math.round(scoused/scototal*100)
-							smal.pull-right #{scoused} / #{scototal} GB (#{percentage}) %
+							smal.pull-right #{scoused} / #{scototal} TB (#{percentage}) %
 						.progress.xs		
 							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
 
 						.clearfix
 							span.pull-left OSF BackEnd
 							- var percentage = Math.round(osfBEused/osfBEtotal*100)
-							smal.pull-right #{osfBEused} / #{osfBEtotal} GB (#{percentage})%
+							smal.pull-right #{osfBEused} / #{osfBEtotal} TB (#{percentage})%
 						.progress.xs		
 							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
 
 						.clearfix
 							span.pull-left OSF FrontEnd
 							- var percentage = Math.round(osfFEused/osfFEtotal*100)
-							smal.pull-right #{osfFEused} / #{osfFEtotal} GB (#{percentage})%
+							smal.pull-right #{osfFEused} / #{osfFEtotal} TB (#{percentage})%
 						.progress.xs		
 							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
 
@@ -172,9 +149,8 @@ block content
 						i.fa.fa-file-o
 					.a.small-box-footer(href='#')
 						| Number of files      
-						i.fa.fa-arrow-circle-right
 			.col-lg-3
-				.small-box.bg-green
+				.small-box.bg-aqua
 					.inner
 						h3
 							| #{zerobytes} Files
@@ -182,12 +158,11 @@ block content
 							| Zero Bytes Files
 					.icon
 						i.fa.fa-file-o
-					.a.small-box-footer(href='#')
+					.a.small-box-footer
 						| Number of files   
-						i.fa.fa-arrow-circle-right
 
 			.col-lg-3
-				.small-box.bg-yellow
+				.small-box.bg-aqua
 					.inner
 						h3
 							| #{archivesize} TB
@@ -195,10 +170,8 @@ block content
 							| DB SCO Archive Size
 					.icon
 						i.fa.fa-cube
-					.a.small-box-footer(href='index')
-						| Number of files    
-						i.fa.fa-arrow-circle-right
-
+					.a.small-box-footer
+						| Disk used
 			.col-lg-3
 				.small-box.bg-aqua
 					.inner
@@ -210,7 +183,6 @@ block content
 						i.fa.fa-file-o
 					.a.small-box-footer(href='index')
 						| Number of files    
-						i.fa.fa-arrow-circle-right
 
 
 			.col-lg-6
@@ -221,7 +193,7 @@ block content
 						- var scog3status = scog3statusjs
 						if scog3status == "OK"
 							.clearfix
-								span.pull-left SCO ASM GROUP3
+								span.pull-left SCO ASM GROUP3, #{group3scofree} GB Free
 								- var group3scoused = Math.round(group3scototal-group3scofree)
 								- var percentage = Math.round(group3scoused/group3scototal*100)
 								smal.pull-right #{Math.round(group3scoused)} / #{Math.round(group3scototal)} GB (#{percentage})%
@@ -230,7 +202,7 @@ block content
 	
 						else if scog3status == "WARNING"	
 							.clearfix
-								span.pull-left SCO ASM GROUP3
+								span.pull-left SCO ASM GROUP3, #{group3scofree} GB Free
 								- var group3scoused = Math.round(group3scototal-group3scofree)
 								- var percentage = Math.round(group3scoused/group3scototal*100)
 								smal.pull-right #{Math.round(group3scoused)} / #{Math.round(group3scototal)} GB (#{percentage})%
@@ -239,7 +211,7 @@ block content
 		
 						else if scog3status == "CRITICAL"	
 							.clearfix
-								span.pull-left SCO ASM GROUP3
+								span.pull-left SCO ASM GROUP3, #{group3scofree} GB Free
 								- var group3scoused = Math.round(group3scototal-group3scofree)
 								- var percentage = Math.round(group3scoused/group3scototal*100)
 								smal.pull-right #{Math.round(group3scoused)} / #{Math.round(group3scototal)} GB (#{percentage})%
@@ -251,7 +223,7 @@ block content
 						- var scog6status = scog6statusjs
 						if scog6status == "OK"
 							.clearfix
-								span.pull-left SCO ASM GROUP6
+								span.pull-left SCO ASM GROUP6, #{group6scofree} GB Free
 								- var group6scoused = Math.round(group6scototal-group6scofree)
 								- var percentage = Math.round(group6scoused/group6scototal*100)
 								smal.pull-right #{Math.round(group6scoused)} / #{Math.round(group6scototal)} GB (#{percentage})%
@@ -260,7 +232,7 @@ block content
 	
 						else if scog6status == "WARNING"
 							.clearfix
-								span.pull-left SCO ASM GROUP6
+								span.pull-left SCO ASM GROUP6, #{group6scofree} GB Free
 								- var group6scoused = Math.round(group6scototal-group6scofree)
 								- var percentage = Math.round(group6scoused/group6scototal*100)
 								smal.pull-right #{Math.round(group6scoused)} / #{Math.round(group6scototal)} GB (#{percentage})%
@@ -269,7 +241,7 @@ block content
 	
 						else if scog6status == "CRITICAL"
 							.clearfix
-								span.pull-left SCO ASM GROUP6
+								span.pull-left SCO ASM GROUP6, #{group6scofree} GB Free
 								- var group6scoused = Math.round(group6scototal-group6scofree)
 								- var percentage = Math.round(group6scoused/group6scototal*100)
 								smal.pull-right #{Math.round(group6scoused)} / #{Math.round(group6scototal)} GB (#{percentage})%
@@ -281,7 +253,7 @@ block content
 						- var osfg3status = osfg3statusjs					
 						if osfg3status == "OK"
 							.clearfix
-								span.pull-left OSF ASM GROUP3
+								span.pull-left OSF ASM GROUP3, #{group3osffree} Free GB
 								- var group3osfused = Math.round(group3osftotal-group3osffree)
 								- var percentage = Math.round(group3osfused/group3osftotal*100)
 								smal.pull-right #{Math.round(group3osfused)} / #{Math.round(group3osftotal)} gb (#{percentage})%
@@ -290,7 +262,7 @@ block content
 
 						if osfg3status == "WARNING"
 							.clearfix
-								span.pull-left OSF ASM GROUP3
+								span.pull-left OSF ASM GROUP3, #{group3osffree} Free GB
 								- var group3osfused = Math.round(group3osftotal-group3osffree)
 								- var percentage = Math.round(group3osfused/group3osftotal*100)
 								smal.pull-right #{Math.round(group3osfused)} / #{Math.round(group3osftotal)} gb (#{percentage})%
@@ -299,7 +271,7 @@ block content
 	
 						if osfg3status == "CRITICAL"	
 							.clearfix
-								span.pull-left OSF ASM GROUP3
+								span.pull-left OSF ASM GROUP3, #{group3osffree} Free GB
 								- var group3osfused = Math.round(group3osftotal-group3osffree)
 								- var percentage = Math.round(group3osfused/group3osftotal*100)
 								smal.pull-right #{Math.round(group3osfused)} / #{Math.round(group3osftotal)} gb (#{percentage})%
@@ -311,7 +283,7 @@ block content
 						- var osfg6status = osfg6statusjs
 						if osfg6status == "OK"
 							.clearfix
-								span.pull-left OSF ASM GROUP6
+								span.pull-left OSF ASM GROUP6, #{group6osffree} Free GB
 								- var group6osfused = Math.round(group6osftotal-group6osffree)
 								- var percentage = Math.round(group6osfused/group6osftotal*100)
 								smal.pull-right #{Math.round(group6osfused)} / #{Math.round(group6osftotal)} GB (#{percentage})%
@@ -320,7 +292,7 @@ block content
 					
 						if osfg6status == "WARNING"
 							.clearfix
-								span.pull-left OSF ASM GROUP6
+								span.pull-left OSF ASM GROUP6, #{group6osffree} Free GB
 								- var group6osfused = Math.round(group6osftotal-group6osffree)
 								- var percentage = Math.round(group6osfused/group6osftotal*100)
 								smal.pull-right #{Math.round(group6osfused)} / #{Math.round(group6osftotal)} GB (#{percentage})%
@@ -330,7 +302,7 @@ block content
 	
 						if osfg6status == "CRITICAL"
 							.clearfix
-								span.pull-left OSF ASM GROUP6
+								span.pull-left OSF ASM GROUP6, #{group6osffree} Free GB
 								- var group6osfused = Math.round(group6osftotal-group6osffree)
 								- var percentage = Math.round(group6osfused/group6osftotal*100)
 								smal.pull-right #{Math.round(group6osfused)} / #{Math.round(group6osftotal)} GB (#{percentage})%
@@ -469,7 +441,7 @@ block javascript
 			labels: ['TAR','Science'],
 			stacked: 'true',
 			hideHover: 'auto',
-			barColors: ["#f56954", "#00a65a"]
+			barColors: ["#0098ef", "#00a65a"]
 		});
 
 
@@ -481,7 +453,7 @@ block javascript
 			labels: ['CSV','Science'],
 			stacked: 'true',
 			hideHover: 'auto',
-			barColors: ["#f56954", "#00a65a"]
+			barColors: ["#0098ef", "#00a65a"]
 
 		});
 
@@ -497,138 +469,3 @@ block javascript
 		salesByState.render();
 		});
 	
-
-		FusionCharts.ready(function(){
-			var salesByState = new FusionCharts({
-			"type": "maps/world",
-			"renderAt": "chartContainer",
-			"width": "800",
-			"height": "600",
-			"dataFormat": "json",
-			"dataSource": {
-			"chart": {
-				"caption": "ARCS Map",
-				"subcaption": "Link State",
-				"showCanvasBorder" : "1",
-				"bgImageAlpha" : "100",
-				//"entityFillHoverColor": "#fffff",
-				//"numberScaleValue": "1,1000,1000",
-				//"numberScaleUnit": "K,M,B",
-				"markerBgColor": "FF0000",
-				"markerRadius": "10",
-				"viewMode" : "0",
-				"showMarkerLabels": "1",
-				//"numberPrefix": "$",
-				//"showLabels": "1",
-				"theme": "zune"
-			},
-
-
-				"markers": {
-					"items": [
-					{
-						"id": "eso",
-						"shapeid": "hdo-shape",
-						"x": "430.23",
-						"y": "125.9",
-						"label": "ESO",
-						"tooltext": "European Southern Observatory",
-						"labelpos": "top"
-					},
-					{
-						"id": "naoj",
-						"shapeid": "hdo-shape",
-						"x": "630.23",
-						"y": "170.9",
-						"label": "NAOJ",
-						"tooltext": "National Astronomical Observatory of Japan",
-						"labelpos": "bottom"
-					},
-					{
-						"id": "nrao",
-						"shapeid": "hdo-shape",
-						"x": "180.23",
-						"y": "150.9",
-						"label": "NRAO",
-						"tooltext": "National Radio Astronomy Observatory",
-						"labelpos": "top"
-					},
-					{
-						"strength": "3",
-						"id": "sco",
-						"shapeid": "hdo-shape",
-						"x": "180.23",
-						"y": "350.9",
-						"label": "OSF",
-						"tooltext": "Santiago Central Office",
-						"labelpos": "top"
-					}],
-	
-
-
-
-					"connectors": [
-					{
-						
-						"from": "sco",
-						"to": "nrao",
-						"tooltext": "ping: 138 ms",
-						"dashed": "0",
-						"strength" : "10",
-						"thickness" : "10",
-						"color": "00577F",
-						"alpha": "60",
-						"showHoverEffect" : "0",
-						"hoverThickness" : "50"
-					},
-					{
-						"from": "sco",
-						"to": "naoj",
-						"tooltext": "ping: 256 ms",
-						"dashed": "0",
-						"showHoverEffect" : "0",
-						"thickness" : "10",
-						"color": "00577F",
-						"alpha": "60"
-					},		
-					{
-						"from": "sco",
-						"to": "eso",
-						"tooltext": "ping arcdb2.hq.eso.org: 246 ms <br> ping ora04.hq.eso.org = 274",
-						"dashed": "0",
-						"thickness" : "10",
-						"color": "00577F",
-						"alpha": "60",
-						"showHoverEffect" : "0"
-					}
-				
-					],
-						
-					"shapes": [
-					{
-						"id": "hdo-shape",
-						"type": "circle",
-						"radius": "10",                        
-						"fillcolor": "ffffff,6baa01",
-						"fillAlpha": "100,40",
-						"fillRatio": "10,50",
-						"fillPattern": "RADIAL",
-						"borderColor": "#666666",
-						"borderThickness": "3",
-						"borderAlpha": "80"
-					}
-					]
-					},
-
-				"data": [
-				{
-				"id": "NA"
-				},
-				{
-				"id": "EU"
-				}
-			]
-			}
-			})
-			salesByState.render()
-		})	

@@ -16,9 +16,9 @@ block content
 		// Small boxes (Stat box)
 		.row
 			// Left col
-			section.col-lg-6.connectedSortable
+			section.col-lg-12
 				// Box (with bar chart)
-				#loading-example.box.box-danger
+				.box.box-solid.box-info
 					.box-header
 						h3.box-title Server Load
 					// /.box-header
@@ -48,34 +48,6 @@ block content
 								// /.pad
 							// /.col
 						// /.row - inside box
-			section.col-lg-6.connectedSortable
-				.box.box-danger
-					.box-header
-						h3.box-title NGAS Status		
-					.box-body.no-padding
-						.box-body.table-responsive.no-padding
-							table.table.table-hover
-								tr
-									th Service Name
-									th Status
-								tr
-									td NGAS SCO
-									td
-										span.label.label-warning NO DATA
-								tr
-									td NGAS OSF
-									td
-										span.label.label-warning NO DATA
-								tr
-									td OSF TestBench
-									td
-										span.label.label-warning NO DATA
-					// /.box-body
-				// /.box
-				// Custom tabs (Charts with tabs)
-
-			// right col
-		// /.row (main row)
 
 		.row
 			section.col-lg-4.coonectedSortable 
@@ -108,14 +80,14 @@ block content
 											span.label.label-danger Danger
 									tr
 			section.col-lg-4.connectedSortable 
-				#loading-example.box.box-solid.box-info
+				.box.box-solid.box-info
 					.box-header
 						.pull-right.box-tools
 							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
 								i.fa.fa-minus
 						h3.box-title NGAS OSF BackEnd Partitions
 					.box-body.table-responsive
-						table#example2.table.table-bordered.table-hover
+						table.table.table-bordered.table-hover
 							thead
 								tr
 									th Host
@@ -145,7 +117,7 @@ block content
 							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
 								i.fa.fa-minus
 						h3.box-title NGAS SCO Partitions
-					#chat-box.box-body.table-responsive
+					box-body.table-responsive
 						table.table.table-bordered.table-hover
 							thead
 								tr
@@ -154,7 +126,7 @@ block content
 									th Used %
 									th Status
 								tbody
-								each column, i in scotable	
+								each column in scotable	
 									td #{column.name}
 									td #{column.partition}
 									td #{column.percused}

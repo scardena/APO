@@ -13,55 +13,6 @@ block content
 			li.active Dashboard
 	// Main content
 	section.content
-		// Small boxes (Stat box)
-		.row
-			// Left col
-			section.col-lg-6.connectedSortable
-				// Box (with bar chart)
-				#loading-example.box.box-solid.box-info
-					.box-header
-						.pull-right.box-tools
-							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
-								i.fa.fa-minus
-						h3.box-title Server Load
-					.box-body
-						.box-body.table-responsive
-							table.table.table-hover
-								tr
-									th Oracle Instance
-									th Status
-								
-								tr
-									td ORACLE OSF
-									td
-										- var status = osfstatus 	
-										if status == "OPEN"
-											span.label.label-success #{osfstatus}
-										else
-											span.label.label-danger #{osfstatus}
-								tr
-									td ORACLE SCO
-									td
-										- var myvar = scostatus
-										if status == "OPEN"
-											span.label.label-success #{scostatus}
-										else
-											span.label.label-danger #{scostatus}
-			section.col-lg-6.connectedSortable
-				// Box (with bar chart)
-				#loading-example.box.box-solid.box-info
-					.box-header
-						.pull-right.box-tools
-							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
-								i.fa.fa-minus
-						h3.box-title Server Load
-					.box-body
-						.row
-							.col-sm-12
-								.pad
-									.clearfix
-										span.pull-left Oracle SCO Size
-	
 		.row 
 			.col-md-6
 				.box.box-solid.box-info
@@ -71,20 +22,105 @@ block content
 								i.fa.fa-minus
 
 						h3.box-title ASM Groups SCO
-					.box-body.table-responsive
-						table.table.table-bordered.table-hover
-							thead
-								tr
-									th Name
-									th Free (GB)
-									th Total (GB)
-								tbody
-								each metric, i in asmsco
-									td #{metric.name}
-									td #{metric.free}
-									td #{metric.total}
-									tr 
+					.box-body
+						.clearfix
+							- var name = asmsco[0]["name"]
+							- var free = asmsco[0]["free"]
+							- var total = asmsco[0]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+						
+						.clearfix
+							- var name = asmsco[1]["name"]
+							- var free = asmsco[1]["free"]
+							- var total = asmsco[1]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
 	
+						.clearfix
+							- var name = asmsco[2]["name"]
+							- var free = asmsco[2]["free"]
+							- var total = asmsco[2]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
+
+	
+						.clearfix
+							- var name = asmsco[3]["name"]
+							- var free = asmsco[3]["free"]
+							- var total = asmsco[3]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+	
+						.clearfix
+							- var name = asmsco[4]["name"]
+							- var free = asmsco[4]["free"]
+							- var total = asmsco[4]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+	
+						.clearfix
+							- var name = asmsco[5]["name"]
+							- var free = asmsco[5]["free"]
+							- var total = asmsco[5]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+	
+						.clearfix
+							- var name = asmsco[6]["name"]
+							- var free = asmsco[6]["free"]
+							- var total = asmsco[6]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
+	
+						.clearfix
+							- var name = asmsco[7]["name"]
+							- var free = asmsco[7]["free"]
+							- var total = asmsco[7]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
 			.col-md-6
 				.box.box-solid.box-info
 					.box-header
@@ -93,19 +129,111 @@ block content
 								i.fa.fa-minus
 
 						h3.box-title ASM Groups OSF
-					.box-body.table-responsive
-						table.table.table-bordered.table-hover
-							thead
-								tr
-									th Name
-									th Free (GB)
-									th Total (GB)
-								tbody
-								each metric, i in asmosf
-									td #{metric.name}
-									td #{metric.free}
-									td #{metric.total}
-									tr
+					.box-body
+
+	
+						.clearfix
+							- var name = asmosf[0]["name"]
+							- var free = asmosf[0]["free"]
+							- var total = asmosf[0]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
+	
+						.clearfix
+							- var name = asmosf[1]["name"]
+							- var free = asmosf[1]["free"]
+							- var total = asmosf[1]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
+	
+						.clearfix
+							- var name = asmosf[2]["name"]
+							- var free = asmosf[2]["free"]
+							- var total = asmosf[2]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
+	
+						.clearfix
+							- var name = asmosf[3]["name"]
+							- var free = asmosf[3]["free"]
+							- var total = asmosf[3]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
+	
+						.clearfix
+							- var name = asmosf[4]["name"]
+							- var free = asmosf[4]["free"]
+							- var total = asmosf[4]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
+	
+						.clearfix
+							- var name = asmosf[5]["name"]
+							- var free = asmosf[5]["free"]
+							- var total = asmosf[5]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
+	
+						.clearfix
+							- var name = asmosf[6]["name"]
+							- var free = asmosf[6]["free"]
+							- var total = asmosf[6]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+	
+						.clearfix
+							- var name = asmosf[7]["name"]
+							- var free = asmosf[7]["free"]
+							- var total = asmosf[7]["total"]
+							- var used = (total - free).toFixed(2)
+							- var percentage = used/total*100
+							span.pull-left #{name}, #{free} Free GB
+							small.pull-right #{used} / #{total} GB
+						.progress.xs
+							.progress-bar.progress-bar-aqua(style='width: #{percentage}%')
+
+
 		.row 
 			.col-md-12
 				.box.box-solid.box-info

@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var async = require('async');
-var mongodb = require('mongodb')
-
+var mongodb = require('mongodb');
+var http = require('http');
 
 
 /* GET home page. */
@@ -260,12 +260,14 @@ router.get('/', function(req, res)
 
 
 
+
 		],
 
 
 		//start dealing with responses from db
 		function(err,results)
 		{
+
 			if (err){console.log(err); return res.send(400);}
 
 			///////////////////////////////////////////////
@@ -372,23 +374,34 @@ router.get('/', function(req, res)
 	
 
 
-			var xmlscoused = Number(data15[0]["data"][0]["mbused"])
-			var xmlscofree = Number(data15[0]["data"][0]["mbfree"])
-			var xmlsconotall = Number(data15[0]["data"][0]["mbnotall"])
-			var xmlscototal = Number(data15[0]["data"][0]["mbtotal"]) 
-			var xmlscofull = Number(data15[0]["data"][0]["mbtotal"]) + xmlsconotall
+			var xmlscoused = (Number(data15[0]["data"][0]["mbused"])/1024).toFixed(2)
+			var xmlscofree = (Number(data15[0]["data"][0]["mbfree"])/1024).toFixed(2)
+			var xmlsconotall = (Number(data15[0]["data"][0]["mbnotall"])/1024).toFixed(2)
+			var xmlscototal = (Number(data15[0]["data"][0]["mbtotal"])/1024).toFixed(2)
+			var xmlscofull = ((Number(data15[0]["data"][0]["mbtotal"])+ Number(xmlsconotall))/1024).toFixed(2)
 			//contains not allocated space
-			var xmlscofreefull = xmlscofree + xmlsconotall
+			var xmlscofreefull = (Number(xmlscofree) + Number(xmlsconotall)/1024).toFixed(2)
 
-			var xmlosfused = Number(data16[0]["data"][0]["mbused"])
-			var xmlosffree = Number(data16[0]["data"][0]["mbfree"])
-			var xmlosfnotall = Number(data16[0]["data"][0]["mbnotall"])
-			var xmlosftotal = Number(data16[0]["data"][0]["mbtotal"])
-			var xmlosffull = Number(data16[0]["data"][0]["mbtotal"]) + xmlosfnotall
+
+
+			var xmlosfused = (Number(data16[0]["data"][0]["mbused"])/1024).toFixed(2)
+			var xmlosffree = (Number(data16[0]["data"][0]["mbfree"])/1024).toFixed(2)
+			var xmlosfnotall = (Number(data16[0]["data"][0]["mbnotall"])/1024).toFixed(2)
+			var xmlosftotal = (Number(data16[0]["data"][0]["mbtotal"])/1024).toFixed(2)
+			var xmlosffull = Number(xmlosftotal) + Number(xmlosfnotall)
 			//contains not allocated space
-			var xmlosffreefull = xmlosffree + xmlosfnotall	
 
-		
+			var xmlosffreefull = Number(xmlosffree) + Number(xmlosfnotall)
+
+	
+			console.log(xmlosfused)
+			console.log(xmlosffree)
+			console.log(xmlosfnotall)
+			console.log(xmlosftotal)
+			console.log(xmlosffull)
+			console.log(xmlosffreefull)
+
+	
 			var xmlscostatus = "OK"
 			if (xmlscofreefull < 32 && xmlscofreefull > 3 ) {xmlscostatus = "WARNING"}
 			else if (xmlscofreefull <= 3) {xmlscostatus = "CRITICAL"}
