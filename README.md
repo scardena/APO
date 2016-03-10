@@ -25,6 +25,27 @@ APO/<br>
 ........../map.js<br>
 ........../template.js<br> (contains the basic code for creating a new route)
 
+
+.
++-- _config.yml
++-- _drafts
+|   +-- begin-with-the-crazy-ideas.textile
+|   +-- on-simplicity-in-technology.markdown
++-- _includes
+|   +-- footer.html
+|   +-- header.html
++-- _layouts
+|   +-- default.html
+|   +-- post.html
++-- _posts
+|   +-- 2007-10-29-why-every-programmer-should-play-nethack.textile
+|   +-- 2009-04-26-barcamp-boston-4-roundup.textile
++-- _data
+|   +-- members.yml
++-- _site
++-- index.html
+
+
 Usage:<br>
 <h1>Adding a new dashboard</h1><br>
 1)Copy the file routeTemplate.js and rename it to the name of your new dashboard route: <br>
