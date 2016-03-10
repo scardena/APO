@@ -24,7 +24,7 @@ MongoClient.connect(dbHost, function(err, db)
      
 
 
-
+//Adding Routes
 var routes = require('./routes/index');
 var ngas = require('./routes/ngas');
 var charts = require('./routes/charts');
@@ -38,6 +38,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+
 
 app.use(favicon());
 app.use(logger('dev'));
@@ -57,7 +59,7 @@ app.use(function(req,res,next)
 
 
 
-
+//Mounting middlewares
 app.use('/', routes);
 app.use('/index',routes);
 app.use('/ngas',ngas);
