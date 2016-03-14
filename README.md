@@ -1,29 +1,9 @@
 # APO-Dashboard
 
-<img src="tiger.jpg" alt="Mountain View" style="width:304px;height:228px;">
+`<img src="tiger.jpg" alt="Mountain View" style="width:304px;height:228px;">`
 Source Code for APO Dashboards
 
-The basic structure for the dashboard is:
-APO/<br>
-...web/<br>
-....../node_modules (contains node modules/libraries for development such us express(mongodb), jade, async, etc. )<br>
-....../public (contains css,icons,images, js chart libraries etc.)<br>
-....../
-....../views (contains the jade code)<br>
-........../index.jade<br>
-........../ngas.jade<br>
-........../oracle.jade<br>
-........../topusers.jade<br>
-........../charts.jade<br>
-........../map.jade<br>
-....../routes (contains the node/express code handles all the data)<br>
-........../index.js<br>
-........../ngas.js<br>
-........../oracle.js<br>
-........../topusers.js<br>
-........../charts.js<br>
-........../map.js<br>
-........../template.js<br> (contains the basic code for creating a new route)
+The basic structure for the dashboard is: <br>
 
 APO<br>
 ├── package.json<br>
@@ -62,10 +42,12 @@ Enter the mongo Shell: <br>
 `mongo`
 Show databases: <br>
 `show dbs`
-In order to create a database we first need to insert at least one record in a collection. I will create a db called 'testdb':
-`use testdb`
-`db.firstcollection.insert({"test":"test"})`
-Now we can see our new db with:
+In order to create a database we first need to insert at least one record in a collection. I will create a db called 'testdb':<br>
+```
+use testdb
+db.firstcollection.insert({"test":"test"})
+```
+Now we can see our new db with: <br>
 `show dbs`
 
 
