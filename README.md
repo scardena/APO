@@ -52,7 +52,7 @@ Now we can see our new db with: <br>
 
 
 <h1>Inserting data into mongoDB from a python script</h1>
-Create a python script with the following code inside:
+Create a python script myscript.py with the following code inside:
 
 ```python
 from pymongo import MongoClient
@@ -68,11 +68,12 @@ result = db.testing.insert_one({
 	"servicename" : servicename,
 	"data": data,
 	"timestamp" : datetime.now()
-)}
+})
 ```
-
 Note that we do not need to create a collection before, since if it not exists, it creates while inserting records.
-
+Now we run the script:<br>
+`python myscript.py`
+It will insert the new record in the $testing$ collection.
 
 <h1>Adding a new dashboard</h1><br>
 1)Copy the file routeTemplate.js and rename it to the name of your new dashboard route: <br>
