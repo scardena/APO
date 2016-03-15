@@ -45,9 +45,10 @@ Usage:<br>
 `cp viewTemplate.jade newdashboard.jade`
 
 3) Add your new dashboard to the APO/web/app.js file in the Adding Routes section: <br>
-`var newdashboard = require('./routes/newdashboard');`  
+`var newdashboard = require('./routes/newdashboard');`  <br>
+
 and letting node use the route in the Mounting Middlewares section: <br>
-`app.use('/newdashboard',newdashboard);`  
+`app.use('/newdashboard',newdashboard);`  <br>
 
 4) Go to APO/web/views and edit the layout.jade file, to add the new dashboard to the main view. Please remember that jade files uses tabs OR 4 spaces, but can not use both at the same time.
 ```html
@@ -56,14 +57,14 @@ a(href='newdashboard')
 	| New Dashboard
 ```
 
-<img src="img/img1.png" alt="Image I" style="width:304px;height:228px;">
 
-
-
-5)Go to APO/web and hit <br>
+5) Go to APO/web and hit <br>
 `npm start`
 
-5) Now you can go to your favorite browser and enter http://10.200.114.135:3000 and you should be able to see this:
+6) Now you can go to your favorite browser and enter http://10.200.114.135:3000 and you should be able to see this:
+
+<img src="img/img1.png" alt="Image I" style="width:304px;height:228px;">
+
 
 Now we are adding some pannels with information stored in mongodb, but first we are going to populate a mongodb collection (A.K.A Table in RDBMS).
 
@@ -155,7 +156,10 @@ Then go to the view, and show the results on the webpage. To do this, edit the n
 ```
 Jade receives the data variables comming from NodeJS with a #{}. At this time, if you go back and start the server again, you should see this in the ddashboard:
 
-PICTURE
+
+<img src="img/img2.png" alt="Image I" style="width:304px;height:228px;">
+
+
 
 and this in the server console:
 ```
@@ -219,7 +223,10 @@ edit the newdashboard.jade file:
 Here we are declaring a new row, so everything that is above that row will not be modified. Please note that the dashboard is one big column of size 12, so we can split the column as we want. Here, our widget will be only of size 4.
 If you restart the server, you should see this:
 
-PICTURE
+
+<img src="img/img3.png" alt="Image I" style="width:304px;height:228px;">
+
+
 
 
 <h1> Creating a table </h1>
@@ -350,7 +357,9 @@ And then we need to edit the newdashboard.jade file. Edit the Main content secti
 ```
 If everthing went well, then you should be able to see something like this:
 
-PICTURE.
+<img src="img/img3.png" alt="Image I" style="width:304px;height:228px;">
+
+
 
 Please note that we added the widgets inside a box. Also here I am using another way to retrieve variables from NodeJS. Jade allows the use of variables, conditionals and loops, and it is also allows to write inline javascript code (See http://jade-lang.com/reference/code/). So when we declare:
 `- var status = key.status`
@@ -466,6 +475,9 @@ Here we are telling the Morris module that it should take the data3 variable com
 If everything went well you should see this:
 
 
-PICTURE 
+
+<img src="img/img1.png" alt="Image I" style="width:304px;height:228px;">
+
+
 
 
