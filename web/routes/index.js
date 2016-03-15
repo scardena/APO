@@ -391,7 +391,7 @@ router.get('/', function(req, res)
 			var xmlosffull = Number(xmlosftotal) + Number(xmlosfnotall)
 			//contains not allocated space
 
-			var xmlosffreefull = Number(xmlosffree) + Number(xmlosfnotall)
+			var xmlosffreefull = (Number(xmlosffree) + Number(xmlosfnotall)).toFixed(2)
 
 	
 			console.log(xmlosfused)

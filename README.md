@@ -1,6 +1,5 @@
 # APO-Dashboard
 
-`<img src="tiger.jpg" alt="Mountain View" style="width:304px;height:228px;">`
 Source Code for APO Dashboards
 
 The basic structure for the dashboard is: <br>
@@ -14,14 +13,14 @@ APO<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── LICENSE <br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── package.json <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── routes <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp; &nbsp;   ├── charts.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp; &nbsp;&nbsp;   ├── index.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp; &nbsp;&nbsp;   ├── map.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp; &nbsp;&nbsp;   ├── misc.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp; &nbsp;&nbsp;   ├── ngas.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp; &nbsp;&nbsp;   ├── oracle.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp; &nbsp;&nbsp;   ├── scripts.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp; &nbsp;&nbsp;   └── topusers.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;   ├── charts.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── index.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── map.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── misc.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── ngas.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── oracle.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── scripts.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   └── topusers.js <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; └── views <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;     ├── charts.jade <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;     ├── empty.jade <br>
@@ -39,18 +38,18 @@ Usage:<br>
 
 
 <h1>Adding a new dashboard</h1><br>
-1)Copy the file routeTemplate.js in APO/web/routes and rename it to the name of your new dashboard route: <br>
-`cp routeTemplate.js newdashboard.js` <br>  
+1) Copy the file routeTemplate.js in APO/web/routes and rename it to the name of your new dashboard route:<br>
+`cp routeTemplate.js newdashboard.js`   
 
-2)Copy the file viewTemplate.jade in APO/web/views and rename it to the name of your new dashboard view: <br>  
-`cp viewTemplate.jade newdashboard.jade` <br> 
+2) Copy the file viewTemplate.jade in APO/web/views and rename it to the name of your new dashboard view: <br>  
+`cp viewTemplate.jade newdashboard.jade`   
 
 3) Add your new dashboard to the APO/web/app.js file in the Adding Routes section: <br>
-`var newdashboard = require('./routes/newdashboard');` <br>
+`var newdashboard = require('./routes/newdashboard');`  
 and letting node use the route in the Mounting Middlewares section: <br>
-`app.use('/newdashboard',newdashboard);` <br>
+`app.use('/newdashboard',newdashboard);`  
 
-4)Go to APO/web/views and edit the layout.jade file, to add the new dashboard to the main view. Please remember that jade files uses tabs OR 4 spaces, but can not use both at the same time.
+4) Go to APO/web/views and edit the layout.jade file, to add the new dashboard to the main view. Please remember that jade files uses tabs OR 4 spaces, but can not use both at the same time.
 ```html
 a(href='newdashboard')
 	i.fa.fa-pie-chart
