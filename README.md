@@ -37,12 +37,12 @@ APO<br>
 Usage:<br>
 
 
-<h1>Adding a new dashboard</h1><br>
+<h1>Adding a new dashboard</h1>
 1) Copy the file routeTemplate.js in APO/web/routes and rename it to the name of your new dashboard route:<br>
-```cp routeTemplate.js newdashboard.js```   
+`cp routeTemplate.js newdashboard.js`
 
 2) Copy the file viewTemplate.jade in APO/web/views and rename it to the name of your new dashboard view: <br>  
-```cp viewTemplate.jade newdashboard.jade```   
+`cp viewTemplate.jade newdashboard.jade`
 
 3) Add your new dashboard to the APO/web/app.js file in the Adding Routes section: <br>
 `var newdashboard = require('./routes/newdashboard');`  
@@ -66,16 +66,16 @@ Now we are adding some pannels with information stored in mongodb, but first we 
 
 <h1>Handling mongoDB Data </h1>
 Enter the mongo Shell: <br>
-`mongo`
+`mongo` <br>
 Show databases: <br>
-`show dbs`
-In this example we will be working with the database that I am already using, which name is 'test'. We could create more databases in this mongo instance, but we would need to edit the APO/web/config.js file, and add the other database here, and we may need to rewrite the app in order to access multiple databases (and honestly I don't really know how to do it.)    
-`use test`    
-We can see the collections by typing:     
-`show collections`    
+`show dbs` <br>
+In this example we will be working with the database that I am already using, which name is 'test'. We could create more databases in this mongo instance, but we would need to edit the APO/web/config.js file, and add the other database here, and we may need to rewrite the app in order to access multiple databases (and honestly I don't really know how to do it.) <br>   
+`use test`    <br>
+We can see the collections by typing: <br>    
+`show collections`    <br>
 Let's check the content of some collection by typing: <br>
 `db.monitoring.find()`<br>
-Since this make our eyes bleed we can do just:
+Since this make our eyes bleed we can do just: <br>
 `db.monitoring.find().pretty()` <br>
 We can find a lot of funier queries in the link below: <br>
 
