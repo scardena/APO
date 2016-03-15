@@ -56,6 +56,8 @@ a(href='newdashboard')
 	| New Dashboard
 ```
 
+![alt text][img/img1.png]
+
 
 5)Go to APO/web and hit <br>
 `npm start`
