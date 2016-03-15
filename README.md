@@ -39,10 +39,10 @@ Usage:<br>
 
 <h1>Adding a new dashboard</h1><br>
 1) Copy the file routeTemplate.js in APO/web/routes and rename it to the name of your new dashboard route:<br>
-`cp routeTemplate.js newdashboard.js`   
+```cp routeTemplate.js newdashboard.js```   
 
 2) Copy the file viewTemplate.jade in APO/web/views and rename it to the name of your new dashboard view: <br>  
-`cp viewTemplate.jade newdashboard.jade`   
+```cp viewTemplate.jade newdashboard.jade```   
 
 3) Add your new dashboard to the APO/web/app.js file in the Adding Routes section: <br>
 `var newdashboard = require('./routes/newdashboard');`  
