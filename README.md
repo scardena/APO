@@ -73,6 +73,28 @@ In this example we will be working with the database that I am already using, wh
 `use test`    <br>
 We can see the collections by typing: <br>    
 `show collections`    <br>
+Currently this is the list of collections in mongo:<br>
+
+```
+asdms 
+asdms365
+asmosf
+asmsco
+datasize
+datasize365
+ingestionosf
+ingestionsco
+monitoring
+ngaspartitionsosfbe
+ngaspartitionsosffe
+ngaspartitionssco
+oracleStatus
+oraclestatus
+tablespacesosf
+tablespacessco
+tablesspacesosf
+tablesspacessco
+```
 Let's check the content of some collection by typing: <br>
 `db.monitoring.find()`<br>
 Since this make our eyes bleed we can do just: <br>
@@ -140,7 +162,7 @@ We've got results!
     servicename: 'myService',
     data: 123456 } ]
 ```
-This is not very useful, so lets print this information in the dashboard, by modifying the route:
+This is not very useful, so let's print this information in the dashboard, by modifying the route:
 
 ```javascript
 var db = req.db;
@@ -237,7 +259,7 @@ router.get('/', function(req, res) {
                                         callback(err);
                                 }
                                 else if (result.length){console.log("We've got a table!");}
-                                else {console.log("no se encontro nada");}
+                                else {console.log("No results");}
                         callback(null,result);
                         });
                 }
@@ -265,8 +287,182 @@ router.get('/', function(req, res) {
 module.exports = router;
 ```
 
+And then we need to edit the newdashboard.jade file. Edit the Main content section only:
+
+```html
+ section.content
+                .row
+                        .col-md-6
+                                .box.box-success
+                                        .box-header
+                                                i.fa.fa-exclamation
+                                                h3.box-title Success!
+
+                                        .box-body
+                                                .alert.alert-success
+                                                        i.fa.fa-check-circle
+                                                        b New dashboard created!
+                                                        | You are doing great
+                .row
+                        .col-lg-4
+                                .box.box-solid.box-info
+                                        .box-header
+                                                h3.box-title My first widget
+                                        .box-body
+                                                .small-box.bg-green
+                                                        .inner
+                                                                - var myname = data1.servicename
+                                                                - var mydata = data1.data
+                                                                h3
+                                                                        | #{myname}
+                                                                h2
+                                                                        | #{mydata}
+
+                                                        .icon
+                                                                i.fa.fa-file-o
+                .row
+                        .col-lg-6
+                                .box.box-solid.box-info
+                                        .box-header
+                                                h3.box-title My first Table
+                                        .box-body
+                                                table.table.table-bordered.table-hover
+                                                        thead
+                                                                tr
+                                                                        th Name
+                                                                        th MB Total
+                                                                        th Status
+                                                                tbody
+                                                                each key in data2
+                                                                        td #{key.name}
+                                                                        td #{key.mbtotal}
+                                                                        td
+                                                                                - var status = key.status
+                                                                                if status == "ONLINE"
+                                                                                        span.label.label-success Online
+                                                                                else
+                                                                                        span.label.label-danger Danger
+                                                                        tr
+
+```
+If everthing went well, then you should be able to see something like this:
+
+PICTURE.
+
+Please note that we added the widgets inside a box. Also here I am using another way to retrieve variables from NodeJS. Jade allows the use of variables, conditionals and loops, and it is also allows to write inline javascript code (See http://jade-lang.com/reference/code/). So when we declare:
+`- var status = key.status`
+it means that we are reading the key 'key' that comes from the router (which is basically a json document), and the value 'status'. The same goes for every key, since they are inside a loop that searchs every key in the json file. (I Hope I am being clear here.)
+Conditionals makes us change the color of the status field in a table.
+ 
+
 
 <h1> Creating a bar chart</h1>
+In order to create a bar chart, it is basically the same as before. Here we are going to read data ingested last 30 days. Note that these queries fo directly to mongo, and not to oracle. Edit the newdashboard.js route: <br>
 
+We add the new function to the async.parallel array:
+```javascript
+                function(callback){
+                        var db = req.db;
+                        var collection = db.collection('datasize');
+                        collection.find().sort({date:-1}).limit(30).toArray(function(err,result){
+
+                                if (err){
+                                        console.log(err);
+                                        callback(err);
+                                }
+                                else if (result.length){console.log("We've got data ingested!");}
+                                else {console.log("No results");}
+                        callback(null,result);
+                        });
+                }
+
+
+```
+
+Then we edit the results of the async, basically send the new data to the view. Note that we are console.logging everything into the npm server, so this way you can see the data you are sending (check the shell that is running the server to see the logs):
+```javascript
+       function(err,results){
+                if (err){
+                        console.log(err);
+                        return res.send(400);
+                }
+                data1 = results[0][0]
+                scotable = results[1][0]["data"]
+                dataingested = results[2]
+
+                var chart1 = []
+
+                console.log(dataingested)
+                //handling the data comming from mongo
+                for (var i = dataingested.length-1;i>=0;i--)
+                {
+                        var formatedResult = dataingested[i];
+                        var date = formatedResult["date"];
+                        var tar= formatedResult["tar"];
+                        var science = formatedResult["science"]
+                        chart1.push({x:date, ytar:tar,yscience:science});
+
+                }
+
+
+                console.log(data1)
+                console.log(scotable)
+                console.log(chart1)
+                res.render('newdashboard',
+                        {
+                                data1:data1,
+                                data2:scotable,
+                                data3:chart1
+                        }
+                )
+        //end function results
+        }
+
+
+
+```
+Now it's time to edit the view file, but this time it will be a little tricky, since we are going to use the morris module, which allows us to draw bar, line, and area charts. For more documentation please go to: http://morrisjs.github.io/morris.js/ 
+The current version of AdminLTE currently supports:
+Morrisjs
+Chartsjs
+Flot
+FusionCharts (I added this one)
+If you want to add more javascripts charts, you can download them (as long as they are free), store them in the APO/web/public/plugins directory, and adding them in the jade file at the end.
+
+
+Finally we edit the view file, make sure to put it inside the second row:
+```html
+                       .col-lg-8
+                                .box.box-solid.box-info
+                                        .box-header
+                                                .pull-right.box-tools
+                                                        button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
+                                                                i.fa.fa-minus
+                                                h3.box-title Data ingested last 30 days
+                                        .box-body.chart-responsive
+                                                #bar-chart1.chart(style='height: 140px;')
+
+
+```
+But we are just accessing an html id that is called 'bar-chart1' (note the #). So we need to create a script that uses the javascript libraries that renders the charts. If you go down in the code, you can see all the javascript scripts that are being imported, and we can write our own scripts with the 'script.' tag:
+```javascript
+        script.
+                Morris.Bar({
+                        element: 'bar-chart1',
+                        data: !{JSON.stringify(data3)},
+                        xkey: 'x',
+                        ykeys: ['ytar','yscience'],
+                        labels: ['TAR','Science'],
+                        stacked: 'true',
+                        hideHover: 'auto',
+                        barColors: ["#0098ef", "#00a65a"]
+                });
+
+```
+Here we are telling the Morris module that it should take the data3 variable comming from node, and render a map.
+If everything went well you should see this:
+
+
+PICTURE 
 
 

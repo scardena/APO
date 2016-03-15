@@ -378,9 +378,9 @@ router.get('/', function(req, res)
 			var xmlscofree = (Number(data15[0]["data"][0]["mbfree"])/1024).toFixed(2)
 			var xmlsconotall = (Number(data15[0]["data"][0]["mbnotall"])/1024).toFixed(2)
 			var xmlscototal = (Number(data15[0]["data"][0]["mbtotal"])/1024).toFixed(2)
-			var xmlscofull = ((Number(data15[0]["data"][0]["mbtotal"])+ Number(xmlsconotall))/1024).toFixed(2)
+			var xmlscofull = (Number(xmlscototal)+ Number(xmlsconotall)).toFixed(2)
 			//contains not allocated space
-			var xmlscofreefull = (Number(xmlscofree) + Number(xmlsconotall)/1024).toFixed(2)
+			var xmlscofreefull = (Number(xmlscofree) + Number(xmlsconotall)).toFixed(2)
 
 
 

@@ -14,45 +14,73 @@ block content
 	// Main content
 	section.content
 		.row
-			.box.box-success
-				.box-header
-					.i.fa.fa-warning
-					h3.box-title Success!
+			.col-md-6
+				.box.box-success
+					.box-header
+						i.fa.fa-exclamation
+						h3.box-title Success!
 
-					.alert.alert-succes
-			b New dashboard created!
-			| You are doing great
+					.box-body
+						.alert.alert-success
+							i.fa.fa-check-circle
+							b New dashboard created!
+							| You are doing great
 		.row
 			.col-lg-4
-				.small-box.bg-green
-					.inner
-						- var myname = data1.servicename
-						- var mydata = data1.data
-						h3
-							| #{myname}
-						h2
-							| #{mydata}
-				
-					.icon
-						i.fa.fa-file-o
-			.col-lg-6
-				table.table.table-bordered.table-hover
-					thead
-						tr
-							th Name
-							th MB Total
-							th Status
-						tbody
-						each value in data2
-							td #{value.name}
-							td #{value.mbtotal}
-							td 
-								- var status = value.status
-								if status == "ONLINE"
-									span.label.label-success Online
-								else
-									span.label.label-danger Danger
-							tr
+				.box.box-solid.box-info
+					.box-header
+						h3.box-title My first widget
+					.box-body
+						.small-box.bg-green
+							.inner
+								- var myname = data1.servicename
+								- var mydata = data1.data
+								h3
+									| #{myname}
+								h2
+									| #{mydata}
+
+							.icon
+								i.fa.fa-file-o
+			.col-lg-8
+				.box.box-solid.box-info
+					.box-header
+						.pull-right.box-tools
+							button.btn.btn-info.btn-sm(data-widget='collapse',data-toggle='tooltip',title='Collapse')
+								i.fa.fa-minus
+						h3.box-title Data ingested last 30 days
+					.box-body.chart-responsive
+						#bar-chart1.chart(style='height: 140px;')
+
+
+		.row
+			.col-lg-12
+				.box.box-solid.box-info
+					.box-header
+						h3.box-title My first Table
+					.box-body
+						table.table.table-bordered.table-hover
+							thead
+								tr
+									th Name
+									th MB Total
+									th Status
+								tbody
+								each key in data2
+									td #{key.name}
+									td #{key.mbtotal}
+									td
+										- var status = key.status
+										if status == "ONLINE"
+											span.label.label-success Online
+										else
+											span.label.label-danger Danger
+									tr
+
+
+
+
+
 block javascript
 	// add new calendar event modal
 	// jQuery 2.0.2
@@ -95,3 +123,16 @@ block javascript
 	script.
 
 		console.log("This is a APOTEST - Template")	
+
+
+		Morris.Bar({
+			element: 'bar-chart1',
+			data: !{JSON.stringify(data3)},
+			xkey: 'x',
+			ykeys: ['ytar','yscience'],
+			labels: ['TAR','Science'],
+			stacked: 'true',
+			hideHover: 'auto',
+			barColors: ["#0098ef", "#00a65a"]
+		});
+
