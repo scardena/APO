@@ -158,9 +158,116 @@ We do not need to modify the view, since the only thing that changed is the cont
 
 <h1> Creating our first widget </h1> 
 Now that we know how to store data in mongo, retrieve it nodejs, and sending it to the AdminLTE views, we are going to create our first widget.
-For this example we will be using the files that we just modified, this are newdashboard.jade and newdashboard.js.
+For this example we will be using the files that we just modified, this are newdashboard.jade and newdashboard.js. Edit the newdashboard.js:
+
+
+```javascript
+var db = req.db;
+var collection = db.collection('testing');
+collection.find().toArray(function(err,result){
+        if (err) {console.log(err)}
+        else {console.log("We've got results!")}
+        console.log(result)
+	var name = result[0]["servicename"] 
+	var data = result[0]["data"]
+        res.render('newdashboard',{
+		myname:name,
+		mydata:data
+	})
+});
+```
+
+edit the newdashboard.jade file:
+```html
+.row
+	.col-lg-4
+		.small-box.bg-green
+			.inner
+				h3
+					| #{myname}
+				h2
+					| #{mydata}
+				
+			.icon
+				i.fa.fa-file-o
+	
+```
+Here we are declaring a new row, so everything that is above that row will not be modified. Please note that the dashboard is one big column of size 12, so we can split the column as we want. Here, our widget will be only of size 4.
+If you restart the server, you should see this:
+
+PICTURE
+
 
 <h1> Creating a table </h1>
+Now we are going to create a table. We are going to use a collection that is already created in mongodb, which name is 'tablespacessco'. You can inspect the collection in the mongoshell by typing:
+`db.tablespacessco.find().pretty()`
+
+Since we are going to leave right there our first widget that we just created, we are going to do 2 queries to mongo, one for the first widget, and one for the new table. If we want to send data from multiple queries in the same response, we need to import the async module. If it is not installed, you can install it with the Node Package Manager: 
+`npm install async`
+
+This will require to change our route a little bit:
+
+```javascript
+var express = require('express');
+var mongodb = require('mongodb');
+var async = require('async');
+var router = express.Router();
+
+router.get('/', function(req, res) {
+
+        async.parallel([
+                function(callback){
+                        var db = req.db;
+                        var collection = db.collection('testing');
+                        collection.find().toArray(function(err,result){
+                                if (err){
+                                        console.log(err);
+                                        callback(err);
+                                }
+                                else if (result.length){console.log("We've got results!");}
+                        callback(null,result);
+                        });
+                },
+                function(callback){
+                        var db = req.db;
+                        var collection = db.collection('tablespacessco');
+                        collection.find().sort({timestamp:-1}).limit(1).toArray(function(err,result){
+
+                                if (err){
+                                        console.log(err);
+                                        callback(err);
+                                }
+                                else if (result.length){console.log("We've got a table!");}
+                                else {console.log("no se encontro nada");}
+                        callback(null,result);
+                        });
+                }
+
+
+	],
+	
+	//results comes in an array in the results variable. results[0] is the first query, results[1] is the second query, and so on...
+	function(err,results){
+		if (err){
+                        console.log(err);
+                        return res.send(400);
+                }
+                data1 = results[0]
+                scotable = results[1]
+
+		res.render('newdashboard',
+			{
+				data1:data1,
+				data2:scotable
+			}
+		)
+	}
+});
+module.exports = router;
+```
+
 
 <h1> Creating a bar chart</h1>
+
+
 
