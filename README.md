@@ -56,7 +56,8 @@ a(href='newdashboard')
 	| New Dashboard
 ```
 
-![alt text][img/img1.png]
+<img src="img/img1.png" alt="Image I" style="width:304px;height:228px;">
+
 
 
 5)Go to APO/web and hit <br>
