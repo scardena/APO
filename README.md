@@ -6,25 +6,27 @@ The basic structure for the dashboard is: <br>
 
 APO<br>
 ├── package.json<br>
-├── README.md<br>
+├── README.md (this file)<br>
 └── web <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── app.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── config.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── app.js (app core) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── config.js (mongo db name declaration)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── LICENSE <br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── package.json <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   ├── routes <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;   ├── charts.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── index.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── map.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── misc.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── ngas.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── oracle.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── scripts.js <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   └── topusers.js <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── index.js (Home router) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── map.js (Map Router) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── misc.js (used for testing) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── ngas.js (Ngas router) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── routeTemplate.js (template router) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── oracle.js (oracle router) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   ├── scripts.js (used for testing router) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; │   &nbsp;&nbsp;&nbsp;   └── topusers.js (not implemented - luste info) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; └── views <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;     ├── charts.jade <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;     ├── empty.jade <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;     ├── error.jade <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;     ├── viewTemplate.jade <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;     ├── index.jade <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;     ├── layout.jade <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;     ├── map.jade <br>
@@ -38,6 +40,7 @@ Usage:<br>
 
 
 <h1>Adding a new dashboard</h1>
+<h3> Note that this tutorial is made in the apo-students machine. Production version is in ducksdev </h3>
 1) Copy the file routeTemplate.js in APO/web/routes and rename it to the name of your new dashboard route:<br>
 `cp routeTemplate.js newdashboard.js`
 
@@ -105,7 +108,7 @@ Since this make our eyes bleed we can do just: <br>
 `db.monitoring.find().pretty()` <br>
 We can find a lot of funier queries in the link below: <br>
 
-LINK
+https://docs.google.com/document/d/1FAN-yig0PxXTRkBYLkTpPlb-nW_aR5S_v4ezNHHdQvY/edit?usp=sharing
 
 <h1>Inserting data into mongoDB from a python script</h1>
 Create a python script myscript.py with the following code inside:
@@ -130,7 +133,8 @@ result = db.testing.insert_one({
 Note that we do not need to create a collection before, since if it not exists, it will be created while inserting records.
 Now we run the script:<br>
 `python myscript.py`
-It will insert the new record in the $testing$ collection.
+It will insert the new record in the testing collection.
+
 <h1>Creating a route that connects to mongoDB</h1>
 There is a template file also, that contains all the basic stuff to retrieve data from mongo. Most of the routes (all of them actually) requires multiple calls to different collections, or multiple http calls, so that's why I use the async module, because it allows to make this calls in a asynchronous way, and then retrieve the results, do whatever I want with them, and then send the data to the view.<br>
 So let's get started. Go to the routes directory and edit the newdashboard.js file. Erase the res.render('newdashboard') line, and add the following inside the router.get function:
@@ -154,10 +158,10 @@ Then go to the view, and show the results on the webpage. To do this, edit the n
                         p #{data}
 
 ```
-Jade receives the data variables comming from NodeJS with a #{}. At this time, if you go back and start the server again, you should see this in the ddashboard:
+Jade receives the data variables comming from NodeJS with a #{}. At this time, if you go back and start the server again, you should see this in the dashboard:
 
 
-<img src="img/img2.png" alt="Image I" style="width:304px;height:228px;">
+<img src="img/img1.png" alt="Image I" style="width:304px;height:228px;">
 
 
 
@@ -224,7 +228,7 @@ Here we are declaring a new row, so everything that is above that row will not b
 If you restart the server, you should see this:
 
 
-<img src="img/img3.png" alt="Image I" style="width:304px;height:228px;">
+<img src="img/img2.png" alt="Image I" style="width:304px;height:228px;">
 
 
 
@@ -475,9 +479,8 @@ Here we are telling the Morris module that it should take the data3 variable com
 If everything went well you should see this:
 
 
-
-<img src="img/img1.png" alt="Image I" style="width:304px;height:228px;">
-
+<img src="img/img4.png" alt="Image I" style="width:304px;height:228px;">
 
 
+The final files are in APO/web/templates/ both, router and view.
 
