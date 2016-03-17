@@ -1,18 +1,11 @@
 var express = require('express');
-var router = express.Router();
-var async = require('async');
 var mongodb = require('mongodb');
-var http = require('http');
+var async = require('async');
+var router = express.Router();
 
+router.get('/', function(req, res) {
 
-/* GET home page. */
-router.get('/', function(req, res) 
-{
-
-	res.render('newdashboard');
-
+                res.render('newdashboard');
 });
-
-
-
 module.exports = router;
+

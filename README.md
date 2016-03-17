@@ -64,6 +64,17 @@ a(href='newdashboard')
 5) Go to APO/web and hit <br>
 `npm start`
 
+If you find this error:
+```
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: listen EADDRINUSE
+
+```
+it means that the server is already running elsewhere, and you should stop it first.
+
+
 6) Now you can go to your favorite browser and enter http://10.200.114.135:3000 and you should be able to see this:
 
 <img src="img/img1.png" alt="Image I" style="width:304px;height:228px;">
