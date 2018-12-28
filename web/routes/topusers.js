@@ -7,30 +7,32 @@ var request = require('request');
 
 router.get('/', function(req, res) {
 	
+	//removing passwords
 	var pingESOarcdb2 = {
-		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=monarcs&password=a1maarcs&id=4703',
+
+		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=someUser&password=somePass&id=4703',
 		"rejectUnauthorized": false,
 	}
 
 
 	var pingESOora04 = {
-		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=monarcs&password=a1maarcs&id=4705',
+		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=someUser&password=somePass&id=4705',
 		"rejectUnauthorized": false,
 	}
 
 	var pingNAOJ = {
-		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=monarcs&password=a1maarcs&id=4710',
+		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=someUser&password=somePass&id=4710',
 		"rejectUnauthorized": false,
 	}
 
 	var pingNRAO = {
-		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=monarcs&password=a1maarcs&id=4712',
+		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=someUser&password=somePass&id=4712',
 		"rejectUnauthorized": false,
 	}
 
 
 	var bandwidth = {
-		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=monarcs&password=a1maarcs&id=5945',
+		url: 'https://prtg.alma.cl/api/getsensordetails.json?username=someUser&password=somePass&id=5945',
 		"rejectUnauthorized": false,
 	}
 
